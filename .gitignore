@@ -1,0 +1,7 @@
+/nbproject/
+/.idea/
+/vendor/
+/composer.lock
+/app/config.php
+/logs/*
+/data/*
