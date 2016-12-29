@@ -9,7 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title><?php
+        echo $this->config['title'];
+        if(!empty($content['title'])) {
+            echo ' -  '.$content['title'];
+        }
+    ?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="/backend/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +38,6 @@
     <div id="wrapper">
 
 <?php include PATH_APP.'modules/core/views/backend/_elements/navigation.php'; ?>
-
 
         <div id="page-wrapper">
             <div class="row">
