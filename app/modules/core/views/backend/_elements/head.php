@@ -40,10 +40,11 @@
 <?php include PATH_APP.'modules/core/views/backend/_elements/navigation.php'; ?>
 
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">Dashboard</h1>
+            <?php if(!empty($content['title'])) { ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header"><?php echo $content['title']; ?></h1>
+                    </div>
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
+            <?php } ?>
 

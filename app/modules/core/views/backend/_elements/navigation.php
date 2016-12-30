@@ -8,12 +8,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="<?php $this->buildURL('core/admin'); ?>"><?php
-            echo $this->config['title'];
-            if(!empty($content['title'])) {
-                echo ' -  '.$content['title'];
-            }
-            ?></a>
+        <a class="navbar-brand" href="<?php $this->buildURL('core/admin'); ?>"><?php echo $this->config['title']; ?></a>
     </div>
     <!-- /.navbar-header -->
 

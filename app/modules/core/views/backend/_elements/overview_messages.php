@@ -9,7 +9,7 @@
         <?php
         foreach($content['overviewMessages'] as $msg) { ?>
             <li>
-                <a href="<?php $this->buildURL($content['LINK_TO_MESSAGE'].$msg['id']); ?>">
+                <a href="<?php $this->buildURL($content['link_to_messages'].$msg['id']); ?>">
                     <div>
                         <strong><?php echo $msg['name']; ?></strong>
                         <span class="pull-right text-muted"><em><?php $this->toDatetimeShort($msg['time']); ?></em></span>
@@ -20,7 +20,7 @@
             <li class="divider"></li>
         <?php } ?>
         <li>
-            <a class="text-center" href="<?php $this->buildURL($content['LINK_TO_MESSAGES']); ?>">
+            <a class="text-center" href="<?php $this->buildURL($content['link_to_messages']); ?>">
                 <strong>Read All Messages</strong>
                 <i class="fa fa-angle-right"></i>
             </a>

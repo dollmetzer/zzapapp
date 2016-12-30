@@ -38,9 +38,9 @@ class adminController extends Controller
         'index' => array('admin')
 
     );
-/*
-     *
-     */
+    */
+
+
     public function indexAction() {
 
         $overviewAlerts = array(
@@ -49,21 +49,27 @@ class adminController extends Controller
 
         $overviewMessages = array(
             array(
+                'id' => '451',
                 'name' => 'Claus Santnji',
                 'time' => '2016-12-24 16:12:14',
                 'shorttext' => 'So, der erste Kunde ist bedient. Das wird heute ...'
             ),
             array(
+                'id' => '375',
                 'name' => 'Clara Blikk',
                 'time' => '2016-12-24 14:37:12',
                 'shorttext' => 'Der Hein gelaubt noch an den Weihnachtsmann. Ist das nicht süß?'
             ),
             array(
+                'id' => '373',
                 'name' => 'Hein Doof',
                 'time' => '2016-12-24 14:00:00',
                 'shorttext' => 'In zwei Stunden kommt der Weihnachtsmann'
             )
         );
+
+
+        $this->view->content['title'] = 'Dashboard';
 
         $this->view->content['overviewAlerts'] = $overviewAlerts;
 
@@ -74,5 +80,40 @@ class adminController extends Controller
         $this->view->theme = 'backend';
 
     }
+
+
+    public function testAction() {
+
+        $form = new \dollmetzer\zzaplib\Form($this->request);
+        $form->name = 'loginform';
+        $form->fields = array(
+            'handle' => array(
+                'type' => 'text',
+                'required' => true,
+                'maxlength' => 32,
+            ),
+            'password' => array(
+                'type' => 'password',
+                'required' => true,
+                'maxlength' => 32,
+            ),
+            'submit' => array(
+                'type' => 'submit',
+                'value' => 'login'
+            ),
+        );
+
+        if ($form->process()) {
+            $values = $form->getValues();
+            var_dump($values);
+            die();
+        }
+
+        $this->view->content['title'] = 'Form test';
+        $this->view->theme = 'backend';
+        $this->view->content['form'] = $form->getViewdata();
+
+    }
+
 
 }
