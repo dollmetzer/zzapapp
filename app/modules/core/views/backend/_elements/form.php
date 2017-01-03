@@ -1,5 +1,61 @@
-<form role="form">
+<form <?php
+if(!empty($content['form']['action'])) {
+    echo 'action="'.$content['form']['action'].'" ';
+} else {
+    echo 'action="" ';
+}
+if (!empty($content['form']['name'])) {
+    echo 'name="' . $content['form']['name'] . '" ';
+}
+echo 'enctype="multipart/form-data" method="post" role="form" data-toggle="validator" >';
+echo "\n\n";
 
+$hasRequired = false;
+
+// all hidden fields on top
+foreach ($content['form']['fields'] as $name => $field) {
+    if($field['type'] == 'hidden') {
+        echo '<input id="formfield_'.$name.'" type="hidden" name="'.$name.'" value="'.$field['value']."\" />\n";
+    }
+}
+$focus = '';
+
+foreach ($content['form']['fields'] as $name => $field) {
+    if($field['type'] != 'hidden') {
+
+        if(!empty($field['error'])) {
+            echo "<div class='form-group has-error' id='formblock_$name'>\n";
+        } else {
+            echo "<div class='form-group' id='formblock_$name'>\n";
+        }
+
+        if ($field['type'] != 'divider') {
+            echo "    <label for='formfield_$name' class='control-label'>" . $this->lang('form_label_' . $name, false);
+            if (!empty($field['required'])) {
+                echo '&nbsp;<sup>*</sup>';
+                $hasRequired = true;
+            } else {
+                echo '&nbsp;<sup>&nbsp;</sup>';
+            }
+            echo "</label>\n";
+        }
+
+
+        $element = PATH_APP.'modules/core/views/backend/_elements/form/'.$field['type'].'.php';
+        include $element;
+
+
+        if(!empty($field['error'])) {
+            echo "<p class='text-danger'><strong>".$field['error']."</strong></p>\n";
+        }
+
+        if (!empty($field['helptext'])) {
+            echo "    <p class=\"help-block\">".$field['helptext']."</p>\n";
+        }
+        echo "</div>\n\n";
+    }
+}
+?>
 
     <div class="form-group">
         <label>Text Input</label>

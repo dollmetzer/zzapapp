@@ -8,7 +8,7 @@
             </div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-6">
                         <?php include PATH_APP . 'modules/core/views/backend/_elements/form.php'; ?>
                     </div>
                 </div>

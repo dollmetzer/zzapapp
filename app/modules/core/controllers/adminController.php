@@ -84,18 +84,23 @@ class adminController extends Controller
 
     public function testAction() {
 
-        $form = new \dollmetzer\zzaplib\Form($this->request);
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
         $form->name = 'loginform';
         $form->fields = array(
             'handle' => array(
                 'type' => 'text',
                 'required' => true,
                 'maxlength' => 32,
+                'helptext' => $this->lang('form_help_handle')
             ),
             'password' => array(
                 'type' => 'password',
                 'required' => true,
                 'maxlength' => 32,
+            ),
+            'lalala' => array(
+                'type' => 'hidden',
+                'value' => 'mhhhhh...'
             ),
             'submit' => array(
                 'type' => 'submit',

@@ -1,0 +1,1 @@
+<button type="submit" class="btn btn-default"><?php $this->lang('form_btn_submit'); ?></button>
