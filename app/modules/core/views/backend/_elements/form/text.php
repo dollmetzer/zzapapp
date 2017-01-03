@@ -1,1 +1,1 @@
-<input type="text" class="form-control" />
+<input type="text" id="formfield_<?php echo $name; ?>"name="<?php echo $name; ?>" class="form-control" />

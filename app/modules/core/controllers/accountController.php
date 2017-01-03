@@ -20,8 +20,6 @@
 
 namespace Application\modules\core\controllers;
 
-use dollmetzer\zzaplib\Application;
-
 /**
  * Class accountController
  * Actions around the users account
@@ -32,7 +30,7 @@ use dollmetzer\zzaplib\Application;
  * @package zzap_app
  * @subpackage core
  */
-class accountController extends \dollmetzer\zzaplib\Controller
+class accountController extends Controller
 {
 
     /**
@@ -47,7 +45,7 @@ class accountController extends \dollmetzer\zzaplib\Controller
      */
     public function loginAction() {
 
-        $form = new \dollmetzer\zzaplib\Form($this->request);
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
         $form->name = 'loginform';
         $form->fields = array(
             'handle' => array(
@@ -70,24 +68,25 @@ class accountController extends \dollmetzer\zzaplib\Controller
 
             $values = $form->getValues();
 
-            $userModel = new \Application\modules\users\models\userModel($this->app);
+            $userModel = new \Application\modules\core\models\userModel($this->config);
             $user = $userModel->getByLogin($values['handle'], $values['password']);
 
             if (!empty($user)) {
                 if (!empty($user['active'])) {
 
                     $this->login($user);
-                    $this->app->forward($this->buildURL(''), $this->lang('msg_users_loginsuccess'), 'message');
+                    $this->request->forward($this->buildURL(''), $this->lang('msg_users_loginsuccess'), 'message');
 
                 }
             } else {
-                $this->app->forward($this->buildURL('users/account/login'), $this->lang('error_users_loginfailed'),
+                $this->request->forward($this->buildURL('users/account/login'), $this->lang('error_users_loginfailed'),
                     'error');
             }
 
         }
-        $this->app->view->content['form'] = $form->getViewdata();
-        $this->app->view->content['title'] = $this->lang('title_users_login');
+
+        $this->view->content['form'] = $form->getViewdata();
+        $this->view->content['title'] = $this->lang('title_users_login');
 
     }
 

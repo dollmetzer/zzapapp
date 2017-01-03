@@ -109,9 +109,11 @@ class adminController extends Controller
         );
 
         if ($form->process()) {
+
             $values = $form->getValues();
             var_dump($values);
             die();
+
         }
 
         $this->view->content['title'] = 'Form test';

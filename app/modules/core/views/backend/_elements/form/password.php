@@ -1,1 +1,1 @@
-<input type="password" class="form-control" />
+<input type="password" id="formfield_<?php echo $name; ?>"name="<?php echo $name; ?>" class="form-control" />

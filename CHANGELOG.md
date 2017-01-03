@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+2017-01-03 Started refactoring DBModel
+
+2017-01-03 Started REST API
+
 2017-01-03 Documentation started: webrequest
 
 2016-12-30 Started backend form templates
