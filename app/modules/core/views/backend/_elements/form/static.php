@@ -1,7 +1,1 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: dirk
- * Date: 30.12.16
- * Time: 22:55
- */
+<p class="form-control-static"><?php echo $field['value']; ?></p>

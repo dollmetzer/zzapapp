@@ -4,9 +4,6 @@
     </div>
     <!-- /#wrapper -->
 
-    <!-- jQuery -->
-    <script src="/backend/vendor/jquery/jquery.min.js"></script>
-
     <!-- Bootstrap Core JavaScript -->
     <script src="/backend/vendor/bootstrap/js/bootstrap.min.js"></script>
 

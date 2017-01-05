@@ -16,6 +16,10 @@
         }
     ?></title>
 
+    <!-- jQuery -->
+    <script src="/backend/vendor/jquery/jquery.min.js"></script>
+
+
     <!-- Bootstrap Core CSS -->
     <link href="/backend/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 

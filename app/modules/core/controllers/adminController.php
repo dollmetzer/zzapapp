@@ -32,57 +32,138 @@ namespace Application\modules\core\controllers;
 class adminController extends Controller
 {
 
-    /*
+    /**
+     * @var array $accessGroups For every action name is an array of allowed user groups
+     */
     public $accessGroups = array(
-
-        'index' => array('admin')
-
+        'index' => array('administrator'),
+        'test' => array('administrator')
     );
-    */
 
 
-    public function indexAction() {
+    public function indexAction()
+    {
 
-        $overviewAlerts = array(
-
-        );
-
-        $overviewMessages = array(
-            array(
-                'id' => '451',
-                'name' => 'Claus Santnji',
-                'time' => '2016-12-24 16:12:14',
-                'shorttext' => 'So, der erste Kunde ist bedient. Das wird heute ...'
-            ),
-            array(
-                'id' => '375',
-                'name' => 'Clara Blikk',
-                'time' => '2016-12-24 14:37:12',
-                'shorttext' => 'Der Hein gelaubt noch an den Weihnachtsmann. Ist das nicht süß?'
-            ),
-            array(
-                'id' => '373',
-                'name' => 'Hein Doof',
-                'time' => '2016-12-24 14:00:00',
-                'shorttext' => 'In zwei Stunden kommt der Weihnachtsmann'
-            )
-        );
+        $overviewAlerts = array();
+        $overviewTasks = array();
+        $overviewMessages = array();
 
 
         $this->view->content['title'] = 'Dashboard';
-
-        $this->view->content['overviewAlerts'] = $overviewAlerts;
 
         $this->view->content['link_to_message'] = '/message/admin/view/';
         $this->view->content['link_to_messages'] = '/message/admin';
         $this->view->content['overviewMessages'] = $overviewMessages;
 
+        $this->view->content['overviewTasks'] = $overviewTasks;
+
+        $this->view->content['overviewAlerts'] = $overviewAlerts;
+
         $this->view->theme = 'backend';
 
     }
 
+    public function testAction()
+    {
 
-    public function testAction() {
+        $this->view->content['title'] = 'Test Page';
+
+
+        $overviewAlerts = array(
+            array(
+                'name' => 'Neuer Kommentar',
+                'time' => '2017-01-05 17:12:14',
+                'url' => '/alerts/admin/view/745',
+                'icon' => 'fa-comment'
+            ),
+            array(
+                'name' => '3 neue Follower',
+                'time' => '2017-01-05 17:03:12',
+                'url' => '/alerts/admin/view/233',
+                'icon' => 'fa-twitter'
+            ),
+            array(
+                'name' => 'Nachricht gesendet',
+                'time' => '2017-01-05 16:46:27',
+                'url' => '/alerts/admin/view/83',
+                'icon' => 'fa-envelope'
+            ),
+            array(
+                'name' => 'Neuer Task',
+                'time' => '2017-01-05 13:33:23',
+                'url' => '/alerts/admin/view/63',
+                'icon' => 'fa-tasks'
+            ),
+            array(
+                'name' => 'Server Neustart',
+                'time' => '2017-01-05 00:45:02',
+                'url' => '/alerts/admin/view/34',
+                'icon' => 'fa-upload'
+            ),
+        );
+        $this->view->content['link_to_alerts'] = '/alerts/admin';
+        $this->view->content['overviewAlerts'] = $overviewAlerts;
+
+
+        $overviewTasks = array(
+            array(
+                'name' => 'In den Spiegel schauen',
+                'progress' => 30,
+                'url' => '/tasks/admin/view/986',
+                'type' => 'success',
+            ),
+            array(
+                'name' => 'Gelangweilt gucken',
+                'progress' => 70,
+                'url' => '/tasks/admin/view/446',
+            ),
+            array(
+                'name' => 'Heise lesen',
+                'progress' => 50,
+                'url' => '/tasks/admin/view/376',
+                'type' => 'warning',
+            ),
+            array(
+                'name' => 'HaX0R News',
+                'progress' => 60,
+                'url' => '/tasks/admin/view/773',
+                'type' => 'danger',
+            ),
+        );
+        $this->view->content['link_to_tasks'] = '/tasks/admin';
+        $this->view->content['overviewTasks'] = $overviewTasks;
+
+
+        $overviewMessages = array(
+            array(
+                'name' => 'Claus Santnji',
+                'time' => '2016-12-24 16:12:14',
+                'url' => '/message/admin/view/451',
+                'shorttext' => 'So, der erste Kunde ist bedient. Das wird heute ...'
+            ),
+            array(
+                'name' => 'Clara Blikk',
+                'time' => '2016-12-24 14:37:12',
+                'url' => '/message/admin/view/375',
+                'shorttext' => 'Der Hein gelaubt noch an den Weihnachtsmann. Ist das nicht süß?'
+            ),
+            array(
+                'name' => 'Hein Doof',
+                'time' => '2016-12-24 14:00:00',
+                'url' => '/message/admin/view/373',
+                'shorttext' => 'In zwei Stunden kommt der Weihnachtsmann'
+            )
+        );
+        $this->view->content['link_to_messages'] = '/message/admin';
+        $this->view->content['overviewMessages'] = $overviewMessages;
+
+
+        $this->view->theme = 'backend';
+
+    }
+
+    public function formAction()
+    {
 
         $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
         $form->name = 'loginform';
@@ -91,21 +172,66 @@ class adminController extends Controller
                 'type' => 'text',
                 'required' => true,
                 'maxlength' => 32,
-                'helptext' => $this->lang('form_help_handle')
+                'helptext' => $this->lang('form_help_handle'),
+                'placeholder' => 'platzhalter'
             ),
             'password' => array(
                 'type' => 'password',
                 'required' => true,
                 'maxlength' => 32,
+                'help' => 'Das ist ein alter helptext',
             ),
             'lalala' => array(
                 'type' => 'hidden',
                 'value' => 'mhhhhh...'
             ),
-            'submit' => array(
-                'type' => 'submit',
-                'value' => 'login'
+            'statisch' => array(
+                'type' => 'static',
+                'value' => 'Statischer Text'
             ),
+            'anaus' => array(
+                'type' => 'checkbox',
+                'description' => 'Soll das an sein?',
+                'value' => 1
+            ),
+            'einszweidrei' => array(
+                'type' => 'radio',
+                'options' => array(
+                    1 => 'Eins',
+                    2 => 'Zwei',
+                    3 => 'Drei'
+                ),
+                'value' => 2
+            ),
+            'nextarea' => array(
+                'type' => 'divider'
+            ),
+            'aussuche' => array(
+                'type' => 'select',
+                'options' => array(
+                    1 => 'Eins',
+                    2 => 'Zwei',
+                    3 => 'Drei'
+                ),
+                'size' => 3,
+                'multiple' => true,
+                'value' => 2,
+            ),
+            'longtext' => array(
+                'type' => 'textarea',
+                'rows' => '4',
+                'placeholder' => 'schreib mal wieder'
+            ),
+            'hochladen' => array(
+                'type' => 'file',
+            ),
+            'submit' => array(
+                'type' => 'submit'
+            ),
+            'reset' => array(
+                'type' => 'reset'
+            ),
+
         );
 
         if ($form->process()) {

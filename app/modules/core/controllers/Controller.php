@@ -1,16 +1,75 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: dirk
- * Date: 27.12.16
- * Time: 13:15
+ * z z a p   a p p   e x a m p l e   a p p l i c a t i o n
+ * =======================================================
+ *
+ * This is a base application using the zzaplib web applications mini framework
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU General Public License as published by the Free Software
+ * Foundation; either version 3 of the License, or (at your option) any later
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Application\modules\core\controllers;
 
-
+/**
+ * Class Controller
+ *
+ * @author Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
+ * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
+ * @package zzap_app
+ * @subpackage core
+ */
 class Controller extends \dollmetzer\zzaplib\Controller
 {
 
+    /**
+     * @var array $accessGroups If not empty, hold information of groups with accessright for every action
+     */
+    protected $accessGroups;
+
+    /**
+     * Check, if call of a certain action is allowed
+     *
+     * Checks, if the current user is in the group for the controller action.
+     * If no entry is found, access is granted.
+     * If an entry is found and the user is group member, access is granted.
+     * If an entry is found and the user is not group meber, access is denied.
+     *
+     * @param string $_actionName
+     * @return boolean
+     */
+    public function isAllowed($_actionName)
+    {
+
+        // allowed, if no entry is found
+        if (empty($this->accessGroups[$_actionName])) {
+            return true;
+        }
+        // allowed, if user is group member
+        $userGroups = $this->session->groups;
+        $intersection = array_intersect($userGroups, $this->accessGroups[$_actionName]);
+        if (!empty($intersection)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     *
+     */
+    public function quicklogin()
+    {
+
+    }
 
 }

@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2017-01-05 Admin overview tasks extracted
+
+2017-01-05 Login/Logout working
+
+2017-01-05 Standard form elements now in template set
+
 2017-01-03 Started refactoring DBModel
 
 2017-01-03 Started REST API

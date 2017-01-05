@@ -34,16 +34,26 @@ class accountController extends Controller
 {
 
     /**
+     * @var array $accessGroups For every action name is an array of allowed user groups
+     */
+    public $accessGroups = array(
+        'login' => array('guest'),
+    );
+
+
+    /**
      * Show details of the user account
      */
-    public function indexAction() {
+    public function indexAction()
+    {
 
     }
 
     /**
      * Show and process login form
      */
-    public function loginAction() {
+    public function loginAction()
+    {
 
         $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
         $form->name = 'loginform';
@@ -74,12 +84,14 @@ class accountController extends Controller
             if (!empty($user)) {
                 if (!empty($user['active'])) {
 
-                    $this->login($user);
+                    $groupModel = new \Application\modules\core\models\groupModel($this->config);
+                    $groups = $groupModel->getUserGroups($user['id']);
+                    $this->session->login($user, $groups);
                     $this->request->forward($this->buildURL(''), $this->lang('msg_users_loginsuccess'), 'message');
 
                 }
             } else {
-                $this->request->forward($this->buildURL('users/account/login'), $this->lang('error_users_loginfailed'),
+                $this->request->forward($this->buildURL('core/account/login'), $this->lang('error_users_loginfailed'),
                     'error');
             }
 
@@ -93,11 +105,13 @@ class accountController extends Controller
     /**
      * logout and forward to the start page
      */
-    public function logoutAction() {
+    public function logoutAction()
+    {
+
+        $this->session->destroy();
+        $this->request->forward($this->buildURL(''), $this->lang('msg_users_logoutsuccess'), 'message');
 
     }
-
-
 
 
 }

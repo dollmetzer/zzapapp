@@ -1,6 +1,6 @@
 <?php
 /**
- * z z a p l i b   a p p l i c a t i o n   s c a f f o l d
+ * z z a p   a p p   e x a m p l e   a p p l i c a t i o n
  * =======================================================
  *
  * This is a base application using the zzaplib web applications mini framework
@@ -27,7 +27,7 @@ namespace Application\modules\core\models;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
  * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @package zzapapp
- * @subpackage zzap_users
+ * @subpackage core
  */
 class userModel extends \dollmetzer\zzaplib\DBModel
 {

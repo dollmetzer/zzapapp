@@ -1,21 +1,28 @@
 <?php include PATH_APP.'modules/core/views/backend/_elements/head.php'; ?>
 
+<?php include PATH_APP . 'modules/core/views/backend/_elements/panel/statuspanels.php'; ?>
+
+<?php include PATH_APP . 'modules/core/views/backend/_elements/panel/chart_area.php'; ?>
+
+<?php include PATH_APP . 'modules/core/views/backend/_elements/panel/chart_bar.php'; ?>
+
 <div class="row">
-    <div class="col-lg-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Basic Form Elements
-            </div>
-            <div class="panel-body">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <?php include PATH_APP . 'modules/core/views/backend/_elements/form.php'; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-4">
+        <?php include PATH_APP . 'modules/core/views/backend/_elements/panel/chart_donut.php'; ?>
+    </div>
+
+    <div class="col-lg-4">
+        <?php include PATH_APP . 'modules/core/views/backend/_elements/panel/chat.php'; ?>
+    </div>
+
+    <div class="col-lg-4">
+        <?php include PATH_APP . 'modules/core/views/backend/_elements/panel/notifications.php'; ?>
     </div>
 </div>
+
+<?php include PATH_APP . 'modules/core/views/backend/_elements/panel/timeline.php'; ?>
+
+<?php include PATH_APP . 'modules/core/views/backend/_elements/panel/flot_linechart.php'; ?>
 
 <?php include PATH_APP.'modules/core/views/backend/_elements/foot.php'; ?>
 

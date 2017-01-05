@@ -1,7 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: dirk
- * Date: 30.12.16
- * Time: 22:57
- */
+
+    echo '<input id="formfield_'.$name.'" type="file" name="'.$name;
+    if(!empty($field['accept'])) {
+        echo '" accept="'.$field['accept'];
+    }
+    echo '" />';
+
+?>

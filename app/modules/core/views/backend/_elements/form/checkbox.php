@@ -1,7 +1,17 @@
+<div class="checkbox">
+    <label>
 <?php
-/**
- * Created by PhpStorm.
- * User: dirk
- * Date: 30.12.16
- * Time: 22:56
- */
+
+    echo '<input id="formfield_'.$name.'" type="checkbox" name="' . $name;
+    if(!empty($field['value'])) {
+        echo '" checked="checked';
+    }
+    echo '" />&nbsp;';
+    if(!empty($field['description'])) {
+        echo $field['description'];
+    }
+
+?>
+    </label>
+</div>
+

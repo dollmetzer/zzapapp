@@ -18,10 +18,10 @@
  * this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Application\modules\core\api;
+namespace Application\modules\core\controllers;
 
 /**
- * Class indexController
+ * Class admingroupController
  *
  * @author Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
@@ -29,15 +29,13 @@ namespace Application\modules\core\api;
  * @package zzap_app
  * @subpackage core
  */
-class indexController
+class admingroupController extends Controller
 {
 
-    public function __construct(\dollmetzer\zzaplib\Api $_api)
+    public function indexAction()
     {
-        $this->api = $_api;
-    }
 
-    public function getAction() {
+        die('core::admingroup::index');
 
     }
 
