@@ -29,11 +29,21 @@
     <!-- Custom CSS -->
     <link href="/backend/dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <link href="/backend/vendor/morrisjs/morris.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="/backend/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <?php
+    $css = $this->getCSS();
+    if(!empty($css)) {
+        echo "<!-- Additional CSS Files -->\n";
+        for($i=0; $i<sizeof($css); $i++) {
+            echo '    <link href="';
+            echo $css[$i];
+            echo '" rel="stylesheet">';
+            echo "\n";
+        }
+    }
+    ?>
 
 </head>
 

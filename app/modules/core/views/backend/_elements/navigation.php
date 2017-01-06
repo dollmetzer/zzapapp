@@ -34,8 +34,24 @@
             <ul class="nav" id="side-menu">
                 <li class="sidebar-search">
                     <div class="input-group custom-search-form">
-                        <input type="text" class="form-control" placeholder="Search...">
-                        <span class="input-group-btn">
+                        <?php
+                        if(!empty($content['searchurl'])) {
+                            $searchUrl = $content['searchurl'];
+                            $searchDisabled = false;
+                        } else {
+                            $searchUrl = '';
+                            $searchDisabled = true;
+                        }
+                        if(!empty($content['searchtext'])) {
+                                $placeholder = $content['searchtext'];
+                            } else {
+                                $placeholder = 'Search...';
+                            }
+                        ?>
+                        <form action="<?php echo $searchUrl; ?>" method="post">
+                        <input type="text" class="form-control" name="searchterm" placeholder="<?php echo $placeholder; ?>" <?php if($searchDisabled === true) echo 'disabled="disabled"' ?>>
+                        </form>
+                            <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
                                     <i class="fa fa-search"></i>
                                 </button>
@@ -47,7 +63,7 @@
                     <a href="<?php $this->buildURL('core/admin'); ?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                 </li>
                 <li>
-                    <a href="<?php $this->buildURL('core/adminuser'); ?>"><i class="fa fa-user fa-fw"></i> User</a>
+                    <a href="<?php $this->buildURL('core/adminuser'); ?>"><i class="fa fa-user fa-fw"></i> Users</a>
                 </li>
                 <li>
                     <a href="<?php $this->buildURL('core/admingroup'); ?>"><i class="fa fa-group fa-fw"></i> Groups</a>

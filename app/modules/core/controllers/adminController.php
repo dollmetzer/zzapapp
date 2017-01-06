@@ -116,6 +116,7 @@ class adminController extends Controller
                 'name' => 'Gelangweilt gucken',
                 'progress' => 70,
                 'url' => '/tasks/admin/view/446',
+                'type' => 'info',
             ),
             array(
                 'name' => 'Heise lesen',
@@ -159,6 +160,23 @@ class adminController extends Controller
 
 
         $this->view->theme = 'backend';
+
+        $newJS = array(
+            // Morris Charts JavaScript
+            "/backend/vendor/raphael/raphael.min.js",
+            "/backend/vendor/morrisjs/morris.min.js",
+            "/backend/vendor/morris-data.js",
+            // Flot Charts JavaScript
+            "/backend/vendor/flot/excanvas.min.js",
+            "/backend/vendor/flot/jquery.flot.js",
+            "/backend/vendor/flot/jquery.flot.pie.js",
+            "/backend/vendor/flot/jquery.flot.resize.js",
+            "/backend/vendor/flot/jquery.flot.time.js",
+            "/backend/vendor/flot-tooltip/jquery.flot.tooltip.min.js",
+            "/backend/data/flot-data.js"
+        );
+        $this->view->addJS($newJS);
+        $this->view->addCSS('/backend/vendor/morrisjs/morris.css');
 
     }
 

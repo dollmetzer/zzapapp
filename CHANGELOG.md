@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+2017-01-06 Admin: Users Overview
+
+2017-01-06 Admin: Selective Search and all Links to Controller Actions now
+
+2017-01-06 Admin: Enabled additional JS Files in the Footer
+
 2017-01-05 Admin overview tasks extracted
 
 2017-01-05 Login/Logout working

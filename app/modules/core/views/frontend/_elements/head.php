@@ -2,14 +2,22 @@
 <html lang="en">
 <head>
 
-    <title></title>
+    <title><?php
+        echo $this->config['title'];
+        if(!empty($content['title'])) {
+            echo ' -  '.$content['title'];
+        }
+        ?></title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="/css/frontend/application.css" rel="stylesheet">
+    <link rel="shortcut icon" href="/frontend/img/favicon.ico">
+    <link rel="apple-itouch-icon" href="/frontend/img/apple-touch-icon.png">
 
-    <script src="/js/backend/jquery.min.js"></script>
+    <link href="/frontend/css/app.css" rel="stylesheet">
+
+    <script src="/backend/vendor/jquery/jquery.min.js"></script>
 
 <body>
 

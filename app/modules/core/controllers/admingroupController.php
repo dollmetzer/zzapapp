@@ -32,10 +32,42 @@ namespace Application\modules\core\controllers;
 class admingroupController extends Controller
 {
 
+    /**
+     * @var array $accessGroups For every action name is an array of allowed user groups
+     */
+    public $accessGroups = array(
+        'index' => array('administrator'),
+        'search' => array('administrator'),
+    );
+
+
+    /**
+     * Method is called before any controller action.
+     * Overload in the application controller to use
+     */
+    public function before() {
+
+        $this->view->content['searchurl'] = $this->buildURL('core/admingroup/search');
+        $this->view->content['searchtext'] = 'Search for group...';
+
+    }
+
     public function indexAction()
     {
 
-        die('core::admingroup::index');
+        $this->view->content['title'] = 'Groups';
+
+        $this->view->theme = 'backend';
+
+    }
+
+    public function searchAction() {
+
+        print_r($_POST);
+
+        $this->view->content['title'] = 'Group Search';
+
+        $this->view->theme = 'backend';
 
     }
 
