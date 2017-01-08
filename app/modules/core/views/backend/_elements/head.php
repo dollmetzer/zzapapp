@@ -53,6 +53,45 @@
 
 <?php include PATH_APP.'modules/core/views/backend/_elements/navigation.php'; ?>
 
+
+        <?php
+        if(!empty($_SESSION['flasherror'])) { ?>
+            <div class="modal fade" id="flash" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content alert alert-danger">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><?php $this->lang('msg_core_flasherror'); ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['flasherror']; ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><?php $this->lang('link_core_close'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } elseif(!empty($_SESSION['flashmessage'])) { ?>
+            <div class="modal fade" id="flash" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content alert alert-info">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><?php $this->lang('msg_core_flashnotice'); ?></h4>
+                        </div>
+                        <div class="modal-body">
+                            <?php echo $_SESSION['flashmessage']; ?>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal"><?php $this->lang('link_core_close'); ?></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+
+
         <div id="page-wrapper">
             <?php if(!empty($content['title'])) { ?>
                 <div class="row">

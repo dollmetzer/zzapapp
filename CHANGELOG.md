@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-01-07 Admin:User: table, details, edit, assign to group, resign from group, add confirm modal
+
 2017-01-07 Languages in Admin Backend, Error- and Noticelayer in Frontend
 
 2017-01-06 Language switching
