@@ -36,11 +36,15 @@ class adminController extends Controller
      * @var array $accessGroups For every action name is an array of allowed user groups
      */
     public $accessGroups = array(
-        'index' => array('administrator'),
-        'test' => array('administrator')
+        'index' => 'administrator',
+        'test' => 'administrator',
+        'form' => 'administrator',
     );
 
 
+    /**
+     * Show admin dashboard
+     */
     public function indexAction()
     {
 

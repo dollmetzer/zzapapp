@@ -41,7 +41,8 @@ class Controller extends \dollmetzer\zzaplib\Controller
      * Check, if call of a certain action is allowed
      *
      * Checks, if the current user is in the group for the controller action.
-     * If no entry is found, access is granted.
+     * If no group access array is found, access is granted.
+     * If an group access array is found, but no entry for the actionname, access is denied
      * If an entry is found and the user is group member, access is granted.
      * If an entry is found and the user is not group meber, access is denied.
      *
@@ -51,17 +52,26 @@ class Controller extends \dollmetzer\zzaplib\Controller
     public function isAllowed($_actionName)
     {
 
-        // allowed, if no entry is found
-        if (empty($this->accessGroups[$_actionName])) {
-            return true;
+        // access forbidden by default
+        $result = false;
+
+        if (empty($this->accessGroups)) {
+
+            // access granted, if group access definition array is empty
+            $result = true;
+
+        } elseif (!empty($this->accessGroups[$_actionName])) {
+
+            // access granted, if user is in defined group
+            $userGroups = $this->session->groups;
+            if(in_array($this->accessGroups[$_actionName], $userGroups)) {
+                $result = true;
+            }
+
         }
-        // allowed, if user is group member
-        $userGroups = $this->session->groups;
-        $intersection = array_intersect($userGroups, $this->accessGroups[$_actionName]);
-        if (!empty($intersection)) {
-            return true;
-        }
-        return false;
+
+        return $result;
+
     }
 
     /**

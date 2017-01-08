@@ -36,10 +36,17 @@ class adminuserController extends Controller
      * @var array $accessGroups For every action name is an array of allowed user groups
      */
     public $accessGroups = array(
-        'index' => array('administrator'),
-        'details' => array('administrator'),
-        'settings' => array('administrator'),
-        'search' => array('administrator')
+        'index' => 'administrator',
+        'details' => 'administrator',
+        'new' => 'administrator',
+        'edit' => 'administrator',
+        'delete' => 'administrator',
+        'sort' => 'administrator',
+        'assigngroup' => 'administrator',
+        'resigngroup' => 'administrator',
+
+        'settings' => 'administrator',
+        'search' => 'administrator'
     );
 
 
@@ -51,6 +58,7 @@ class adminuserController extends Controller
 
         $this->view->content['searchurl'] = $this->buildURL('core/adminuser/search');
         $this->view->content['searchtext'] = 'Search for user...';
+        $this->view->theme = 'backend';
 
     }
 
@@ -101,7 +109,6 @@ class adminuserController extends Controller
 
         $this->view->content['table'] = $table;
         $this->view->content['title'] = $this->lang('title_users');
-        $this->view->theme = 'backend';
 
     }
 
@@ -125,7 +132,6 @@ class adminuserController extends Controller
         $groupModel = new \Application\modules\core\models\groupModel($this->config);
         $groups = $groupModel->getUserGroups($uid);
 
-        $this->view->theme = 'backend';
         $this->view->content['title'] = $this->lang('title_details');
         $this->view->content['user'] = $user;
         $this->view->content['groups'] = $groups;
@@ -185,7 +191,6 @@ class adminuserController extends Controller
 
         }
 
-        $this->view->theme = 'backend';
         $this->view->content['title'] = $this->lang('title_new');
         $this->view->content['form'] = $form->getViewdata();
 
@@ -265,7 +270,6 @@ class adminuserController extends Controller
         //$this->lang['msg_core_deleteconfirm'] = $this->app->lang['msg_confirm_resign'];
         //$this->lang['link_core_delete'] = $this->app->lang['link_group_resign'];
 
-        $this->view->theme = 'backend';
         $this->view->content['title'] = $this->lang('title_edit');
         $this->view->content['form'] = $form->getViewdata();
         $this->view->content['userGroups'] = $userGroups;
@@ -332,22 +336,10 @@ class adminuserController extends Controller
 
     }
 
-
-    public function profileAction()
-    {
-
-        $this->view->content['title'] = 'User Profile';
-
-        $this->view->theme = 'backend';
-
-    }
-
     public function settingsAction()
     {
 
         $this->view->content['title'] = 'User Settings';
-
-        $this->view->theme = 'backend';
 
     }
 
@@ -356,9 +348,6 @@ class adminuserController extends Controller
         print_r($_POST);
 
         $this->view->content['title'] = 'User Search';
-
-
-        $this->view->theme = 'backend';
 
     }
 

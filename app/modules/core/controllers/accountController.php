@@ -37,7 +37,7 @@ class accountController extends Controller
      * @var array $accessGroups For every action name is an array of allowed user groups
      */
     public $accessGroups = array(
-        'login' => array('guest'),
+        'login' => 'guest',
     );
 
 

@@ -32,6 +32,14 @@ namespace Application\modules\core\controllers;
 class adminchartController extends Controller
 {
 
+    /**
+     * @var array $accessGroups For every action name is an array of allowed user groups
+     */
+    public $accessGroups = array(
+        'index' => 'administrator',
+    );
+
+
     public function indexAction()
     {
 

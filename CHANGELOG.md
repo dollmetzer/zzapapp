@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-01-07 Changed access control for controller actions
+
 2017-01-07 Admin:User: table, details, edit, assign to group, resign from group, add confirm modal
 
 2017-01-07 Languages in Admin Backend, Error- and Noticelayer in Frontend

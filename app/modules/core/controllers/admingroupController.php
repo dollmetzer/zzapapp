@@ -36,8 +36,8 @@ class admingroupController extends Controller
      * @var array $accessGroups For every action name is an array of allowed user groups
      */
     public $accessGroups = array(
-        'index' => array('administrator'),
-        'search' => array('administrator'),
+        'index' => 'administrator',
+        'search' => 'administrator',
     );
 
 
@@ -49,6 +49,7 @@ class admingroupController extends Controller
 
         $this->view->content['searchurl'] = $this->buildURL('core/admingroup/search');
         $this->view->content['searchtext'] = 'Search for group...';
+        $this->view->theme = 'backend';
 
     }
 
@@ -57,17 +58,13 @@ class admingroupController extends Controller
 
         $this->view->content['title'] = $this->lang('title_groups');
 
-        $this->view->theme = 'backend';
-
     }
 
     public function searchAction() {
 
         print_r($_POST);
 
-        $this->view->content['title'] = 'Group Search';
-
-        $this->view->theme = 'backend';
+        $this->view->content['title'] = $this->lang('title_group_search');
 
     }
 
