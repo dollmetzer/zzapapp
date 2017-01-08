@@ -97,7 +97,7 @@ class adminuserController extends Controller
         $table->setRows($userModel->getList($first, $entriesPerPage, $sortColumn, $sortDirection));
 
         $this->view->content['table'] = $table;
-        $this->view->content['title'] = 'Users';
+        $this->view->content['title'] = $this->lang('title_users');
         $this->view->theme = 'backend';
 
     }

@@ -21,53 +21,36 @@
 namespace Application\modules\core\controllers;
 
 /**
- * Class admingroupController
+ * The language controller switches the frontend between available languages
  *
  * @author Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
- * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
+ * @copyright 2016 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @package zzap_app
  * @subpackage core
  */
-class admingroupController extends Controller
+class languageController extends \dollmetzer\zzaplib\Controller
 {
 
     /**
-     * @var array $accessGroups For every action name is an array of allowed user groups
+     * Switch the users current language, if the new language is installed.
+     * Afterwards forward to the startpage
      */
-    public $accessGroups = array(
-        'index' => array('administrator'),
-        'search' => array('administrator'),
-    );
-
-
-    /**
-     * Method is called before any controller action.
-     * Overload in the application controller to use
-     */
-    public function before() {
-
-        $this->view->content['searchurl'] = $this->buildURL('core/admingroup/search');
-        $this->view->content['searchtext'] = 'Search for group...';
-
-    }
-
-    public function indexAction()
+    public function switchtoAction()
     {
 
-        $this->view->content['title'] = $this->lang('title_groups');
+        if (sizeof($this->request->params) < 1) {
+            $this->forward($this->buildUrl(''), $this->lang('error_core_parametermissing'), 'error');
+        }
+        $language = $this->request->params[0];
 
-        $this->view->theme = 'backend';
+        if (!in_array($language, $this->config['languages'])) {
+            $this->forward($this->buildUrl(''), $this->lang('error_core_illegalparameter'), 'error');
+        }
 
-    }
+        $this->session->user_language = $language;
 
-    public function searchAction() {
-
-        print_r($_POST);
-
-        $this->view->content['title'] = 'Group Search';
-
-        $this->view->theme = 'backend';
+        $this->forward($this->buildUrl(''));
 
     }
 

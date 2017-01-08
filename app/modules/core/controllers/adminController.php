@@ -49,7 +49,7 @@ class adminController extends Controller
         $overviewMessages = array();
 
 
-        $this->view->content['title'] = 'Dashboard';
+        $this->view->content['title'] = $this->lang('title_dashboard');
 
         $this->view->content['link_to_message'] = '/message/admin/view/';
         $this->view->content['link_to_messages'] = '/message/admin';

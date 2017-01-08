@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+2017-01-07 Languages in Admin Backend, Error- and Noticelayer in Frontend
+
+2017-01-06 Language switching
+
 2017-01-06 Admin: Users Overview
 
 2017-01-06 Admin: Selective Search and all Links to Controller Actions now
