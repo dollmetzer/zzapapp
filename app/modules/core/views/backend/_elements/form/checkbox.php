@@ -6,6 +6,10 @@
     if(!empty($field['value'])) {
         echo '" checked="checked';
     }
+    if (!empty($field['readonly'])) {
+        echo '" readonly="readonly';
+    }
+
     echo '" />&nbsp;';
     if(!empty($field['description'])) {
         echo $field['description'];

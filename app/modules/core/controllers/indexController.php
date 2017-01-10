@@ -34,17 +34,25 @@ class indexController extends \dollmetzer\zzaplib\Controller
 
     public function indexAction() {
 
+        $this->view->content['title'] = $this->lang('title_start');
+
     }
 
     public function termsAction() {
+
+        $this->view->content['title'] = $this->lang('title_terms');
 
     }
 
     public function privacyAction() {
 
+        $this->view->content['title'] = $this->lang('title_privacy');
+
     }
 
     public function imprintAction() {
+
+        $this->view->content['title'] = $this->lang('title_imprint');
 
     }
 

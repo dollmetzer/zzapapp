@@ -6,6 +6,9 @@
     } else {
     echo 'value="'.$this->lang('form_btn_reset', false);
     }
+    if (!empty($field['readonly'])) {
+        echo '" readonly="readonly';
+    }
     echo '" class="btn btn-warning" />';
 
 ?>

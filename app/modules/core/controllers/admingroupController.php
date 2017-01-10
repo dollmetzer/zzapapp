@@ -37,6 +37,10 @@ class admingroupController extends Controller
      */
     public $accessGroups = array(
         'index' => 'administrator',
+        'details' => 'administrator',
+        'new' => 'administrator',
+        'edit' => 'administrator',
+        'delete' => 'administrator',
         'search' => 'administrator',
     );
 
@@ -45,7 +49,8 @@ class admingroupController extends Controller
      * Method is called before any controller action.
      * Overload in the application controller to use
      */
-    public function before() {
+    public function before()
+    {
 
         $this->view->content['searchurl'] = $this->buildURL('core/admingroup/search');
         $this->view->content['searchtext'] = 'Search for group...';
@@ -53,18 +58,320 @@ class admingroupController extends Controller
 
     }
 
+    /**
+     * Show a list of all groups with pagination and sorting
+     */
     public function indexAction()
     {
 
+        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+
+        $columns = $this->getColumns();
+        $table = new \dollmetzer\zzaplib\Table($this->request);
+        $table->setColumns($columns);
+
+        // calculate pagination
+        $page = 0;
+        if (sizeof($this->request->params) > 0) {
+            $page = (int)$this->request->params[0];
+        }
+        $table->page = $page;
+        $entriesPerPage = 10;
+        $table->entriesPerPage = $entriesPerPage;
+        $table->calculateMaxPage($groupModel->getListEntries());
+        $first = $page * $entriesPerPage;
+        $table->urlPage = 'core/admingroup/index';
+
+        $table->urlSort = 'core/admingroup/sort';
+        $table->urlNew = 'core/admingroup/new';
+        $table->urlDetails = 'core/admingroup/details';
+        $table->urlEdit = 'core/admingroup/edit';
+        $table->urlDelete = 'core/admingroup/delete';
+
+        // sorting
+        $sortColumn = $this->session->sortGroupCol;
+        if (!$sortColumn) {
+            $sortColumn = 'name';
+        }
+        $table->sortColumn = $sortColumn;
+        $sortDirection = $this->session->sortGroupDir;
+        if (!$sortDirection) {
+            $sortDirection = 'asc';
+        }
+        $table->sortDirection = $sortDirection;
+
+        // get content from db
+        $table->setRows($groupModel->getList($first, $entriesPerPage, $sortColumn, $sortDirection));
+
+        $this->view->content['table'] = $table;
         $this->view->content['title'] = $this->lang('title_groups');
 
     }
 
-    public function searchAction() {
+    /**
+     * Show details of a group
+     */
+    public function detailsAction()
+    {
+
+        if (sizeof($this->request->params) < 1) {
+            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_parametermissing'),
+                'error');
+        }
+        $gid = (int)$this->request->params[0];
+
+        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $group = $groupModel->read($gid);
+        if (empty($group)) {
+            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
+                'error');
+        }
+
+        $this->view->theme = 'backend';
+        $this->view->content['title'] = $this->lang('title_details');
+        $this->view->content['group'] = $group;
+
+    }
+
+    /**
+     * Create a new group
+     */
+    public function newAction()
+    {
+
+        $group = array(
+            'id' => 0,
+            'name' => '',
+            'description' => '',
+            'active' => 1
+        );
+
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
+        $form->name = 'groupform';
+        $form->fields = $this->getGroupformFields($group);
+
+        if ($form->process()) {
+
+            $values = $form->getValues();
+
+            // check, if groupname already exists
+            $groupModel = new \Application\modules\core\models\groupModel($this->config);
+            $oldGroup = $groupModel->getByName($values['name']);
+            if (!empty($oldGroup)) {
+                $form->fields['name']['error'] = $this->lang('form_error_group_already_exists');
+                $form->hasErrors = true;
+            }
+
+            if ($form->hasErrors === false) {
+
+                // save group
+                $data = array(
+                    'active' => $values['active'],
+                    'protected' => 0,
+                    'name' => $values['name'],
+                    'description' => $values['description'],
+                );
+                $gid = $groupModel->create($data);
+
+                $this->request->forward($this->buildURL('core/admingroup'),
+                    sprintf($this->lang('msg_group_created'), $values['name']), 'message');
+
+            }
+
+        }
+
+        $this->view->content['title'] = $this->lang('title_new');
+        $this->view->content['form'] = $form->getViewdata();
+        $this->view->content['group'] = $group;
+
+    }
+
+    /**
+     * Edit a group
+     */
+    public function editAction()
+    {
+
+        if (sizeof($this->request->params) < 1) {
+            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_parametermissing'),
+                'error');
+        }
+        $gid = (int)$this->request->params[0];
+
+        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $group = $groupModel->read($gid);
+        if (empty($group)) {
+            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
+                'error');
+        }
+
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
+        $form->name = 'groupform';
+        $form->fields = $this->getGroupformFields($group);
+
+        if ( $form->process() && empty($group['protected']) ) {
+
+            $values = $form->getValues();
+
+            // check, if groupname already exists
+            $groupModel = new \Application\modules\core\models\groupModel($this->config);
+            $oldGroup = $groupModel->getByName($values['name']);
+            if (!empty($oldGroup)) {
+                if ($oldGroup['id'] != $gid) {
+                    $form->fields['name']['error'] = $this->lang('form_error_group_already_exists');
+                    $form->hasErrors = true;
+                }
+            }
+
+            if ($form->hasErrors === false) {
+
+                // save group
+                $data = array(
+                    'active' => $values['active'],
+                    'name' => $values['name'],
+                    'description' => $values['description'],
+                );
+                $groupModel->update($gid, $data);
+
+                $this->request->forward($this->buildURL('core/admingroup/details/' . $gid),
+                    $this->lang('msg_group_updated'), 'message');
+
+            }
+
+        }
+
+        $this->view->content['title'] = $this->lang('title_edit');
+        $this->view->content['form'] = $form->getViewdata();
+
+    }
+
+    /**
+     * Delete a group
+     */
+    public function deleteAction()
+    {
+
+        if (sizeof($this->request->params) < 1) {
+            $this->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_parametermissing'),
+                'error');
+        }
+        $gid = (int)$this->request->params[0];
+
+        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $group = $groupModel->read($gid);
+
+        if (empty($group)) {
+            $this->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
+                'error');
+        }
+        if (!empty($group['protected'])) {
+            $this->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_delete_not_allowed'),
+                'error');
+        }
+
+        $groupModel->delete($gid);
+        $this->forward($this->buildUrl('core/admingroup/index/0'),
+            sprintf($this->lang('msg_group_deleted'), $group['name']), 'message');
+
+    }
+
+
+    public function searchAction()
+    {
 
         print_r($_POST);
 
         $this->view->content['title'] = $this->lang('title_group_search');
+
+    }
+
+
+    /**
+     * Returns the columns definition array for the group table
+     *
+     * @return array
+     */
+    protected function getColumns()
+    {
+
+        return array(
+            'id' => array(
+                'type' => 'hidden',
+            ),
+            'protected' => array(
+                'type' => 'hidden',
+            ),
+            'active' => array(
+                'type' => 'active',
+                'sortable' => true,
+                'width' => '5%',
+            ),
+            'name' => array(
+                'type' => 'text',
+                'sortable' => true,
+                'width' => '30%',
+            ),
+            'description' => array(
+                'type' => 'text',
+                'width' => '50%',
+            ),
+            'details' => array(
+                'type' => 'details',
+                'width' => '5%',
+            ),
+            'edit' => array(
+                'type' => 'edit',
+                'width' => '5%',
+            ),
+            'delete' => array(
+                'type' => 'delete',
+                'width' => '5%',
+            ),
+        );
+
+    }
+
+    /**
+     * Get the definition array for the group form
+     *
+     * @param array $_group
+     * @return array Field definition
+     */
+    protected function getGroupformFields(array $_group)
+    {
+
+        $form = array(
+            'id' => array(
+                'type' => 'hidden',
+                'value' => $_group['id'],
+            ),
+            'name' => array(
+                'type' => 'text',
+                'required' => true,
+                'maxlength' => 32,
+                'value' => $_group['name'],
+            ),
+            'description' => array(
+                'type' => 'text',
+                'maxlength' => 32,
+                'value' => $_group['description'],
+            ),
+            'active' => array(
+                'type' => 'checkbox',
+                'value' => $_group['active'],
+            ),
+            'submit' => array(
+                'type' => 'submit',
+            ),
+        );
+
+        if(!empty($_group['protected'])) {
+            foreach($form as $name=>$field) {
+                $form[$name]['readonly'] = true;
+            }
+        }
+
+        return $form;
 
     }
 

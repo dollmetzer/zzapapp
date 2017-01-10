@@ -1,5 +1,8 @@
-<?php include PATH_APP.'modules/core/views/frontend/_elements/head.php'; ?>
+<?php
+$content['nav_main'] = 'imprint';
+include PATH_APP.'modules/core/views/frontend/_elements/head.php';
 
-<p><strong>core::index::imprint</strong></p>
+include PATH_APP.'modules/core/views/frontend/index/imprint_'.$this->session->user_language.'.php';
 
-<?php include PATH_APP.'modules/core/views/frontend/_elements/foot.php'; ?>
+include PATH_APP.'modules/core/views/frontend/_elements/foot.php';
+?>

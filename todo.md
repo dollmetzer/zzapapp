@@ -1,12 +1,11 @@
 To Do
 =====
 
+- Admin Modal message sichtbar machen
+- Gruppen übersicht, new, bearbeiten, löschen, sortieren
+- User suchen
+- Gruppen suchen
 - Minimum Frontend
-- Admin Login
-- DB Access an minimum scheme (user, group)
-- Permission for Controllers
-- Permission for everything else
-- Admin Forms
-- Admin Tables
 - CLI Commands
 - REST API
+- REST API Access control

@@ -5,5 +5,8 @@
     } else {
         echo '" value="'.$this->lang('form_btn_submit', false);
     }
+    if (!empty($field['readonly'])) {
+        echo '" disabled="disabled';
+    }
     echo '" class="btn btn-primary" />';
 ?>

@@ -54,6 +54,9 @@
 <?php include PATH_APP.'modules/core/views/backend/_elements/navigation.php'; ?>
 
 
+
+
+
         <?php
         if(!empty($_SESSION['flasherror'])) { ?>
             <div class="modal fade" id="flash" tabindex="-1" role="dialog">
@@ -73,6 +76,12 @@
                 </div>
             </div>
         <?php } elseif(!empty($_SESSION['flashmessage'])) { ?>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+
             <div class="modal fade" id="flash" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content alert alert-info">
@@ -89,6 +98,11 @@
                     </div>
                 </div>
             </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php } ?>
 
 
