@@ -18,7 +18,7 @@
  * this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Application\modules\core\controllers;
+namespace Application\modules\users\controllers;
 
 /**
  * Class adminuserController
@@ -27,9 +27,9 @@ namespace Application\modules\core\controllers;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
  * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @package zzap_app
- * @subpackage core
+ * @subpackage users
  */
-class adminuserController extends Controller
+class adminuserController extends \Application\modules\core\controllers\Controller
 {
 
     /**
@@ -54,9 +54,10 @@ class adminuserController extends Controller
      * Method is called before any controller action.
      * Overload in the application controller to use
      */
-    public function before() {
+    public function before()
+    {
 
-        $this->view->content['searchurl'] = $this->buildURL('core/adminuser/search');
+        $this->view->content['searchurl'] = $this->buildURL('users/adminuser/search');
         $this->view->content['searchtext'] = 'Search for user...';
         $this->view->theme = 'backend';
 
@@ -68,7 +69,7 @@ class adminuserController extends Controller
     public function indexAction()
     {
 
-        $userModel = new \Application\modules\core\models\userModel($this->config);
+        $userModel = new \Application\modules\users\models\userModel($this->config);
 
         // set table columns
         $columns = $this->getColumns();
@@ -85,12 +86,12 @@ class adminuserController extends Controller
         $table->entriesPerPage = $entriesPerPage;
         $table->calculateMaxPage($userModel->getListEntries());
         $first = $page * $entriesPerPage;
-        $table->urlPage = 'core/adminuser/index';
-        $table->urlSort = 'core/adminuser/sort';
-        $table->urlNew = 'core/adminuser/new';
-        $table->urlDetails = 'core/adminuser/details';
-        $table->urlEdit = 'core/adminuser/edit';
-        $table->urlDelete = 'core/adminuser/delete';
+        $table->urlPage = 'users/adminuser/index';
+        $table->urlSort = 'users/adminuser/sort';
+        $table->urlNew = 'users/adminuser/new';
+        $table->urlDetails = 'users/adminuser/details';
+        $table->urlEdit = 'users/adminuser/edit';
+        $table->urlDelete = 'users/adminuser/delete';
 
         // sorting
         $sortColumn = $this->session->sortUserCol;
@@ -115,21 +116,22 @@ class adminuserController extends Controller
     /**
      * Show user details
      */
-    public function detailsAction() {
+    public function detailsAction()
+    {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
                 'error');
         }
         $uid = (int)$this->request->params[0];
-        $userModel = new \Application\modules\core\models\userModel($this->config);
+        $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $groups = $groupModel->getUserGroups($uid);
 
         $this->view->content['title'] = $this->lang('title_details');
@@ -141,7 +143,8 @@ class adminuserController extends Controller
     /**
      * Create a new user
      */
-    public function newAction() {
+    public function newAction()
+    {
 
         $user = array(
             'id' => 0,
@@ -160,7 +163,7 @@ class adminuserController extends Controller
 
             $values = $form->getValues();
 
-            $userModel = new \Application\modules\core\models\userModel($this->config);
+            $userModel = new \Application\modules\users\models\userModel($this->config);
             $oldUser = $userModel->getByHandle($values['handle']);
             if (!empty($oldUser)) {
                 $form->fields['handle']['error'] = $this->lang('form_error_user_already_exists');
@@ -178,13 +181,13 @@ class adminuserController extends Controller
                 );
 
                 // attach standard user group to new user
-                $groupModel = new \Application\modules\core\models\groupModel($this->config);
+                $groupModel = new \Application\modules\users\models\groupModel($this->config);
                 $group = $groupModel->getByName('user');
                 if (!empty($group)) {
                     $groupModel->addUserGroup($uid, $group['id']);
                 }
 
-                $this->forward($this->buildUrl('core/adminuser/details/' . $uid),
+                $this->forward($this->buildUrl('users/adminuser/details/' . $uid),
                     sprintf($this->lang('msg_user_created'), $values['handle']), 'message');
 
             }
@@ -197,17 +200,18 @@ class adminuserController extends Controller
     }
 
 
-    public function editAction() {
+    public function editAction()
+    {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
                 'error');
         }
         $uid = (int)$this->request->params[0];
-        $userModel = new \Application\modules\core\models\userModel($this->config);
+        $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
@@ -241,7 +245,7 @@ class adminuserController extends Controller
                     $userModel->setPassword($uid, $values['password']);
                 }
 
-                $this->forward($this->buildUrl('core/adminuser/details/' . $uid), $this->lang('msg_user_updated'),
+                $this->forward($this->buildUrl('users/adminuser/details/' . $uid), $this->lang('msg_user_updated'),
                     'message');
 
             }
@@ -249,7 +253,7 @@ class adminuserController extends Controller
         }
 
         // now handle the groups
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $userGroups = $groupModel->getUserGroups($uid);
         $allGroups = $groupModel->getList(0, 999);
         // remove groups from list that the user is already assigned to
@@ -267,8 +271,8 @@ class adminuserController extends Controller
         }
 
         // change delete confirm dialog
-        //$this->lang['msg_core_deleteconfirm'] = $this->app->lang['msg_confirm_resign'];
-        //$this->lang['link_core_delete'] = $this->app->lang['link_group_resign'];
+        $this->view->languageSnippets['msg_core_deleteconfirm'] = $this->view->languageSnippets['msg_confirm_resign'];
+        $this->view->languageSnippets['link_core_delete'] = $this->view->languageSnippets['link_group_resign'];
 
         $this->view->content['title'] = $this->lang('title_edit');
         $this->view->content['form'] = $form->getViewdata();
@@ -280,23 +284,25 @@ class adminuserController extends Controller
     }
 
 
-    public function deleteAction() {
+    public function deleteAction()
+    {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
                 'error');
         }
         $uid = (int)$this->request->params[0];
-        $userModel = new \Application\modules\core\models\userModel($this->config);
+        $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
         $userModel->delete($uid);
 
-        $this->forward($this->buildUrl('core/adminuser/index/0'), sprintf($this->lang('msg_user_deleted'), $user['handle']), 'message');
+        $this->forward($this->buildUrl('users/adminuser/index/0'),
+            sprintf($this->lang('msg_user_deleted'), $user['handle']), 'message');
 
     }
 
@@ -304,10 +310,11 @@ class adminuserController extends Controller
     /**
      * Change the table sorting and forward to table view
      */
-    public function sortAction() {
+    public function sortAction()
+    {
 
         if (sizeof($this->request->params) < 2) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
@@ -315,11 +322,11 @@ class adminuserController extends Controller
         $sortColumn = $this->request->params[0];
         $columns = $this->getColumns();
         if (!in_array($sortColumn, array_keys($columns))) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
         if ($columns[$sortColumn]['sortable'] !== true) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
@@ -332,7 +339,7 @@ class adminuserController extends Controller
         $this->session->sortUserCol = $sortColumn;
         $this->session->sortUserDir = $sortDirection;
 
-        $this->forward($this->buildUrl('core/adminuser/index/0'));
+        $this->forward($this->buildUrl('users/adminuser/index/0'));
 
     }
 
@@ -343,11 +350,59 @@ class adminuserController extends Controller
 
     }
 
-    public function searchAction() {
+    public function searchAction()
+    {
 
-        print_r($_POST);
+        $searchterm = '';
+
+        if (!empty($_POST['searchterm'])) {
+
+            $searchterm = htmlentities(trim($_POST['searchterm']));
+            $searchterm = str_replace('*', '%', $searchterm);
+
+            $userModel = new \Application\modules\users\models\userModel($this->config);
+
+            // set table columns
+            $columns = $this->getColumns();
+            $table = new \dollmetzer\zzaplib\Table();
+            $table->setColumns($columns);
+
+            // calculate pagination
+            $page = 0;
+            if (sizeof($this->request->params) > 0) {
+                $page = (int)$this->request->params[0];
+            }
+            $table->page = $page;
+            $entriesPerPage = 10;
+            $table->entriesPerPage = $entriesPerPage;
+
+            $table->calculateMaxPage($userModel->getSearchEntries($searchterm));
+            $first = $page * $entriesPerPage;
+            $table->urlPage = 'users/adminuser/search';
+            $table->urlSort = 'users/adminuser/sort';
+            $table->urlNew = 'users/adminuser/new';
+            $table->urlDetails = 'users/adminuser/details';
+            $table->urlEdit = 'users/adminuser/edit';
+            $table->urlDelete = 'users/adminuser/delete';
+
+            // sorting
+            $sortColumn = $this->session->sortUserCol;
+            if (!$sortColumn) {
+                $sortColumn = 'handle';
+            }
+            $table->sortColumn = $sortColumn;
+            $sortDirection = $this->session->sortUserDir;
+            if (!$sortDirection) {
+                $sortDirection = 'asc';
+            }
+            $table->sortDirection = $sortDirection;
+            $table->setRows($userModel->search($searchterm, $first, $entriesPerPage, $sortColumn, $sortDirection));
+            $this->view->content['table'] = $table;
+
+        }
 
         $this->view->content['title'] = 'User Search';
+        $this->view->content['searchterm'] = $searchterm;
 
     }
 
@@ -359,29 +414,29 @@ class adminuserController extends Controller
     {
 
         if (sizeof($this->request->params) < 2) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
                 'error');
         }
 
         $uid = (int)$this->request->params[0];
-        $userModel = new \Application\modules\core\models\userModel($this->config);
+        $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
         $gid = (int)$this->request->params[1];
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $group = $groupModel->read($gid);
         if (empty($group)) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
         $groupModel->addUserGroup($uid, $gid);
 
-        $this->forward($this->buildUrl('core/adminuser/edit/' . $uid),
+        $this->forward($this->buildUrl('users/adminuser/edit/' . $uid),
             sprintf($this->lang('msg_group_assigned'), $user['handle'], $group['name']), 'message');
 
     }
@@ -391,33 +446,32 @@ class adminuserController extends Controller
     {
 
         if (sizeof($this->request->params) < 2) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
                 'error');
         }
 
         $uid = (int)$this->request->params[0];
-        $userModel = new \Application\modules\core\models\userModel($this->config);
+        $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
         $gid = (int)$this->request->params[1];
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $group = $groupModel->read($gid);
         if (empty($group)) {
-            $this->forward($this->buildUrl('core/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
         $groupModel->deleteUserGroup($uid, $gid);
 
-        $this->forward($this->buildUrl('core/adminuser/edit/' . $uid),
+        $this->forward($this->buildUrl('users/adminuser/edit/' . $uid),
             sprintf($this->lang('msg_group_resigned'), $user['handle'], $group['name']), 'message');
 
     }
-
 
 
     /**

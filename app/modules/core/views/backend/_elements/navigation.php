@@ -63,10 +63,10 @@
                     <a href="<?php $this->buildURL('core/admin'); ?>"><i class="fa fa-dashboard fa-fw"></i> <?php $this->lang('nav_admin_dashboard'); ?></a>
                 </li>
                 <li>
-                    <a href="<?php $this->buildURL('core/adminuser'); ?>"><i class="fa fa-user fa-fw"></i> <?php $this->lang('nav_admin_users'); ?></a>
+                    <a href="<?php $this->buildURL('users/adminuser'); ?>"><i class="fa fa-user fa-fw"></i> <?php $this->lang('nav_admin_users'); ?></a>
                 </li>
                 <li>
-                    <a href="<?php $this->buildURL('core/admingroup'); ?>"><i class="fa fa-group fa-fw"></i> <?php $this->lang('nav_admin_groups'); ?></a>
+                    <a href="<?php $this->buildURL('users/admingroup'); ?>"><i class="fa fa-group fa-fw"></i> <?php $this->lang('nav_admin_groups'); ?></a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>

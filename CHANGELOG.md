@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-01-11 Refactoring: adminuser und admingroup now in module users
+
 2017-01-10 Frontend Multilanguage
 
 2017-01-07 Changed access control for controller actions

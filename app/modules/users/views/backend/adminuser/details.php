@@ -57,8 +57,8 @@
     <tr>
         <td>&nbsp;</td>
         <td>
-            <a href="<?php $this->buildUrl('core/adminuser/edit/'.$content['user']['id']); ?>" class="btn btn-default" ><?php $this->lang('link_core_edit'); ?></a>
-            <a data-toggle="modal" data-target="#confirm-delete" data-href="<?php $this->buildUrl('core/adminuser/delete/'.$content['user']['id']); ?>" class="btn btn-danger" ><?php $this->lang('link_core_delete'); ?></a>
+            <a href="<?php $this->buildUrl('users/adminuser/edit/'.$content['user']['id']); ?>" class="btn btn-default" ><?php $this->lang('link_core_edit'); ?></a>
+            <a data-toggle="modal" data-target="#confirm-delete" data-href="<?php $this->buildUrl('users/adminuser/delete/'.$content['user']['id']); ?>" class="btn btn-danger" ><?php $this->lang('link_core_delete'); ?></a>
         </td>
     </tr>
 </table>

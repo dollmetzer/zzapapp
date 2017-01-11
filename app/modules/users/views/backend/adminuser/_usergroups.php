@@ -5,9 +5,9 @@
     foreach($content['userGroups'] as $userGroup) {
         echo '<li class="list-group-item">';
         echo '<a data-toggle="modal" data-target="#confirm-delete" data-href="';
-        echo $this->buildUrl('core/adminuser/resigngroup/'.$content['user']['id'].'/'.$userGroup['id']);
+        echo $this->buildUrl('users/adminuser/resigngroup/'.$content['user']['id'].'/'.$userGroup['id']);
         echo '" class="btn btn-default" title="';
-        echo $this->lang('icon_core_delete', false);
+        echo $this->lang('icon_group_resign', false);
         echo '"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>&nbsp;';
         echo $userGroup['name'].' ('.$userGroup['description'].')';
         echo "</li>\n";
@@ -30,7 +30,7 @@
 
 <script>
     function assignGroup(element) {
-        url="<?php $this->buildUrl('core/adminuser/assigngroup/'.$content['user']['id']); ?>/" + element.value;
+        url="<?php $this->buildUrl('users/adminuser/assigngroup/'.$content['user']['id']); ?>/" + element.value;
         window.location.href = url;
     }
 </script>

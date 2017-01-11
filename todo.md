@@ -2,8 +2,7 @@ To Do
 =====
 
 - Admin Modal message sichtbar machen
-- Gruppen übersicht, new, bearbeiten, löschen, sortieren
-- User suchen
+- User suchen - paginierung
 - Gruppen suchen
 - Minimum Frontend
 - CLI Commands

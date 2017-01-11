@@ -40,11 +40,11 @@ include(PATH_APP . 'modules/core/views/backend/_elements/head.php');
             <td>&nbsp;</td>
             <td><?php if($content['group']['protected'] != 1) {
                     echo '<a href="';
-                    $this->buildUrl('core/admingroup/edit/'.$content['group']['id']);
+                    $this->buildUrl('users/admingroup/edit/'.$content['group']['id']);
                     echo '" class="btn btn-default">';
                     $this->lang('link_core_edit');
                     echo '</a>&nbsp;<a data-toggle="modal" data-target="#confirm-delete" data-href="';
-                    $this->buildUrl('core/admingroup/delete/'.$content['group']['id']);
+                    $this->buildUrl('users/admingroup/delete/'.$content['group']['id']);
                     echo '" class="btn btn-danger">';
                     $this->lang('link_core_delete');
                     echo '</a>';

@@ -18,7 +18,7 @@
  * this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Application\modules\core\models;
+namespace Application\modules\users\models;
 
 /**
  * The users usermodel handles user data
@@ -27,7 +27,7 @@ namespace Application\modules\core\models;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
  * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @package zzapapp
- * @subpackage core
+ * @subpackage users
  */
 class userModel extends \dollmetzer\zzaplib\DBModel
 {
@@ -310,20 +310,51 @@ class userModel extends \dollmetzer\zzaplib\DBModel
     /**
      * Search for a user
      *
-     * @todo: pagination and sorting
-     *
      * @param string $_searchterm
-     * @return array groups
+     * @param integer $_first
+     * @param integer $_length
+     * @param string $_sortColumn
+     * @param string $_sortDirection
+     * @return array users
      */
     public function search($_searchterm, $_first = null, $_length = null, $_sortColumn = null, $_sortDirection = 'asc')
     {
 
         $sql = "SELECT * FROM user WHERE handle LIKE " . $this->dbh->quote($_searchterm);
+        if ($_sortColumn) {
+            if ($_sortDirection != 'desc') {
+                $_sortDirection = 'asc';
+            }
+            $sql .= ' ORDER BY ' . $_sortColumn . ' ' . strtoupper($_sortDirection);
+
+        }
+        if (isset($_first) && isset($_length)) {
+            $sql .= ' LIMIT ' . (int)$_first . ',' . (int)$_length;
+        }
 
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $list = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $list;
 
     }
+
+    /**
+     * Get the number of results for a search
+     *
+     * @param string $_searchterm
+     * @return array
+     */
+    public function getSearchEntries($_searchterm)
+    {
+
+        $sql = "SELECT COUNT(*) as entries FROM user WHERE handle LIKE " . $this->dbh->quote($_searchterm);
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result['entries'];
+
+    }
+
 
 }

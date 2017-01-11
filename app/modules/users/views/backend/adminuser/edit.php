@@ -9,7 +9,7 @@ include PATH_APP.'modules/core/views/backend/_elements/head.php';
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6"><?php include(PATH_APP . 'modules/core/views/backend/adminuser/_usergroups.php'); ?></div>
+        <div class="col-md-6"><?php include(PATH_APP . 'modules/users/views/backend/adminuser/_usergroups.php'); ?></div>
     </div>
     <p>&nbsp;</p>
 

@@ -18,7 +18,7 @@
  * this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Application\modules\core\models;
+namespace Application\modules\users\models;
 
 /**
  * The users groupmodel handles user group data
@@ -27,7 +27,7 @@ namespace Application\modules\core\models;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
  * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @package zzapapp
- * @subpackage core
+ * @subpackage users
  */
 class groupModel extends \dollmetzer\zzaplib\DBModel
 {

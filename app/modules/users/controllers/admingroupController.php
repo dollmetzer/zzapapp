@@ -18,7 +18,7 @@
  * this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Application\modules\core\controllers;
+namespace Application\modules\users\controllers;
 
 /**
  * Class admingroupController
@@ -27,9 +27,9 @@ namespace Application\modules\core\controllers;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
  * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @package zzap_app
- * @subpackage core
+ * @subpackage users
  */
-class admingroupController extends Controller
+class admingroupController extends \Application\modules\core\controllers\Controller
 {
 
     /**
@@ -52,7 +52,7 @@ class admingroupController extends Controller
     public function before()
     {
 
-        $this->view->content['searchurl'] = $this->buildURL('core/admingroup/search');
+        $this->view->content['searchurl'] = $this->buildURL('users/admingroup/search');
         $this->view->content['searchtext'] = 'Search for group...';
         $this->view->theme = 'backend';
 
@@ -64,7 +64,7 @@ class admingroupController extends Controller
     public function indexAction()
     {
 
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
 
         $columns = $this->getColumns();
         $table = new \dollmetzer\zzaplib\Table($this->request);
@@ -80,13 +80,13 @@ class admingroupController extends Controller
         $table->entriesPerPage = $entriesPerPage;
         $table->calculateMaxPage($groupModel->getListEntries());
         $first = $page * $entriesPerPage;
-        $table->urlPage = 'core/admingroup/index';
+        $table->urlPage = 'users/admingroup/index';
 
-        $table->urlSort = 'core/admingroup/sort';
-        $table->urlNew = 'core/admingroup/new';
-        $table->urlDetails = 'core/admingroup/details';
-        $table->urlEdit = 'core/admingroup/edit';
-        $table->urlDelete = 'core/admingroup/delete';
+        $table->urlSort = 'users/admingroup/sort';
+        $table->urlNew = 'users/admingroup/new';
+        $table->urlDetails = 'users/admingroup/details';
+        $table->urlEdit = 'users/admingroup/edit';
+        $table->urlDelete = 'users/admingroup/delete';
 
         // sorting
         $sortColumn = $this->session->sortGroupCol;
@@ -115,15 +115,17 @@ class admingroupController extends Controller
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_parametermissing'),
+            $this->request->forward($this->buildUrl('users/admingroup/index/0'),
+                $this->lang('error_core_parametermissing'),
                 'error');
         }
         $gid = (int)$this->request->params[0];
 
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $group = $groupModel->read($gid);
         if (empty($group)) {
-            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->request->forward($this->buildUrl('users/admingroup/index/0'),
+                $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
@@ -155,7 +157,7 @@ class admingroupController extends Controller
             $values = $form->getValues();
 
             // check, if groupname already exists
-            $groupModel = new \Application\modules\core\models\groupModel($this->config);
+            $groupModel = new \Application\modules\users\models\groupModel($this->config);
             $oldGroup = $groupModel->getByName($values['name']);
             if (!empty($oldGroup)) {
                 $form->fields['name']['error'] = $this->lang('form_error_group_already_exists');
@@ -173,7 +175,7 @@ class admingroupController extends Controller
                 );
                 $gid = $groupModel->create($data);
 
-                $this->request->forward($this->buildURL('core/admingroup'),
+                $this->request->forward($this->buildURL('users/admingroup'),
                     sprintf($this->lang('msg_group_created'), $values['name']), 'message');
 
             }
@@ -193,15 +195,17 @@ class admingroupController extends Controller
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_parametermissing'),
+            $this->request->forward($this->buildUrl('users/admingroup/index/0'),
+                $this->lang('error_core_parametermissing'),
                 'error');
         }
         $gid = (int)$this->request->params[0];
 
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $group = $groupModel->read($gid);
         if (empty($group)) {
-            $this->request->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->request->forward($this->buildUrl('users/admingroup/index/0'),
+                $this->lang('error_core_illegalparameter'),
                 'error');
         }
 
@@ -209,12 +213,12 @@ class admingroupController extends Controller
         $form->name = 'groupform';
         $form->fields = $this->getGroupformFields($group);
 
-        if ( $form->process() && empty($group['protected']) ) {
+        if ($form->process() && empty($group['protected'])) {
 
             $values = $form->getValues();
 
             // check, if groupname already exists
-            $groupModel = new \Application\modules\core\models\groupModel($this->config);
+            $groupModel = new \Application\modules\users\models\groupModel($this->config);
             $oldGroup = $groupModel->getByName($values['name']);
             if (!empty($oldGroup)) {
                 if ($oldGroup['id'] != $gid) {
@@ -233,7 +237,7 @@ class admingroupController extends Controller
                 );
                 $groupModel->update($gid, $data);
 
-                $this->request->forward($this->buildURL('core/admingroup/details/' . $gid),
+                $this->request->forward($this->buildURL('users/admingroup/details/' . $gid),
                     $this->lang('msg_group_updated'), 'message');
 
             }
@@ -252,25 +256,25 @@ class admingroupController extends Controller
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/admingroup/index/0'), $this->lang('error_core_parametermissing'),
                 'error');
         }
         $gid = (int)$this->request->params[0];
 
-        $groupModel = new \Application\modules\core\models\groupModel($this->config);
+        $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $group = $groupModel->read($gid);
 
         if (empty($group)) {
-            $this->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
                 'error');
         }
         if (!empty($group['protected'])) {
-            $this->forward($this->buildUrl('core/admingroup/index/0'), $this->lang('error_delete_not_allowed'),
+            $this->forward($this->buildUrl('users/admingroup/index/0'), $this->lang('error_delete_not_allowed'),
                 'error');
         }
 
         $groupModel->delete($gid);
-        $this->forward($this->buildUrl('core/admingroup/index/0'),
+        $this->forward($this->buildUrl('users/admingroup/index/0'),
             sprintf($this->lang('msg_group_deleted'), $group['name']), 'message');
 
     }
@@ -365,8 +369,8 @@ class admingroupController extends Controller
             ),
         );
 
-        if(!empty($_group['protected'])) {
-            foreach($form as $name=>$field) {
+        if (!empty($_group['protected'])) {
+            foreach ($form as $name => $field) {
                 $form[$name]['readonly'] = true;
             }
         }
