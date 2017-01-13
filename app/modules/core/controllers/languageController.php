@@ -45,7 +45,7 @@ class languageController extends \dollmetzer\zzaplib\Controller
         $language = $this->request->params[0];
 
         if (!in_array($language, $this->config['languages'])) {
-            $this->forward($this->buildUrl(''), $this->lang('error_core_illegalparameter'), 'error');
+            $this->forward($this->buildUrl(''), $this->lang('error_core_illegal_parameter'), 'error');
         }
 
         $this->session->user_language = $language;

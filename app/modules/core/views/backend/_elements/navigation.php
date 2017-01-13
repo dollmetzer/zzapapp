@@ -60,13 +60,13 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="<?php $this->buildURL('core/admin'); ?>"><i class="fa fa-dashboard fa-fw"></i> <?php $this->lang('nav_admin_dashboard'); ?></a>
+                    <a href="<?php $this->buildURL('core/admin'); ?>" <?php if($content['nav_main'] == 'admin') echo 'class="active"'; ?>><i class="fa fa-dashboard fa-fw"></i> <?php $this->lang('nav_admin_dashboard'); ?></a>
                 </li>
                 <li>
-                    <a href="<?php $this->buildURL('users/adminuser'); ?>"><i class="fa fa-user fa-fw"></i> <?php $this->lang('nav_admin_users'); ?></a>
+                    <a href="<?php $this->buildURL('users/adminuser'); ?>" <?php if($content['nav_main'] == 'adminuser') echo 'class="active"'; ?>><i class="fa fa-user fa-fw"></i> <?php $this->lang('nav_admin_users'); ?></a>
                 </li>
                 <li>
-                    <a href="<?php $this->buildURL('users/admingroup'); ?>"><i class="fa fa-group fa-fw"></i> <?php $this->lang('nav_admin_groups'); ?></a>
+                    <a href="<?php $this->buildURL('users/admingroup'); ?>" <?php if($content['nav_main'] == 'admingroup') echo 'class="active"'; ?>><i class="fa fa-group fa-fw"></i> <?php $this->lang('nav_admin_groups'); ?></a>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>

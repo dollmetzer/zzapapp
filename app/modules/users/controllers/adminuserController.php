@@ -127,7 +127,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -211,7 +211,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -295,7 +295,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -314,7 +314,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
     {
 
         if (sizeof($this->request->params) < 2) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -322,11 +322,11 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $sortColumn = $this->request->params[0];
         $columns = $this->getColumns();
         if (!in_array($sortColumn, array_keys($columns))) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
         if ($columns[$sortColumn]['sortable'] !== true) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -422,7 +422,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -430,7 +430,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $group = $groupModel->read($gid);
         if (empty($group)) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -454,7 +454,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $userModel = new \Application\modules\users\models\userModel($this->config);
         $user = $userModel->read($uid);
         if (empty($user)) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -462,7 +462,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
         $groupModel = new \Application\modules\users\models\groupModel($this->config);
         $group = $groupModel->read($gid);
         if (empty($group)) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 

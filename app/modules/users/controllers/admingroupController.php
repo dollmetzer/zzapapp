@@ -125,7 +125,7 @@ class admingroupController extends \Application\modules\core\controllers\Control
         $group = $groupModel->read($gid);
         if (empty($group)) {
             $this->request->forward($this->buildUrl('users/admingroup/index/0'),
-                $this->lang('error_core_illegalparameter'),
+                $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -205,7 +205,7 @@ class admingroupController extends \Application\modules\core\controllers\Control
         $group = $groupModel->read($gid);
         if (empty($group)) {
             $this->request->forward($this->buildUrl('users/admingroup/index/0'),
-                $this->lang('error_core_illegalparameter'),
+                $this->lang('error_core_illegal_parameter'),
                 'error');
         }
 
@@ -265,7 +265,7 @@ class admingroupController extends \Application\modules\core\controllers\Control
         $group = $groupModel->read($gid);
 
         if (empty($group)) {
-            $this->forward($this->buildUrl('users/admingroup/index/0'), $this->lang('error_core_illegalparameter'),
+            $this->forward($this->buildUrl('users/admingroup/index/0'), $this->lang('error_core_illegal_parameter'),
                 'error');
         }
         if (!empty($group['protected'])) {
