@@ -18,7 +18,7 @@
  * this program; if not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Application\modules\core\controllers;
+namespace Application\modules\users\controllers;
 
 /**
  * Class accountController
@@ -28,9 +28,9 @@ namespace Application\modules\core\controllers;
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
  * @copyright 2016-2017 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @package zzap_app
- * @subpackage core
+ * @subpackage users
  */
-class accountController extends Controller
+class accountController extends \Application\modules\core\controllers\Controller
 {
 
     /**
@@ -78,20 +78,20 @@ class accountController extends Controller
 
             $values = $form->getValues();
 
-            $userModel = new \Application\modules\core\models\userModel($this->config);
+            $userModel = new \Application\modules\users\models\userModel($this->config);
             $user = $userModel->getByLogin($values['handle'], $values['password']);
 
             if (!empty($user)) {
                 if (!empty($user['active'])) {
 
-                    $groupModel = new \Application\modules\core\models\groupModel($this->config);
+                    $groupModel = new \Application\modules\users\models\groupModel($this->config);
                     $groups = $groupModel->getUserGroups($user['id']);
                     $this->session->login($user, $groups);
                     $this->request->forward($this->buildURL(''), $this->lang('msg_users_loginsuccess'), 'message');
 
                 }
             } else {
-                $this->request->forward($this->buildURL('core/account/login'), $this->lang('error_users_loginfailed'),
+                $this->request->forward($this->buildURL('users/account/login'), $this->lang('error_users_loginfailed'),
                     'error');
             }
 

@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-01-13 Fixed: Visibility of error/notification modal in Admin
+
 2017-01-11 Refactoring: adminuser und admingroup now in module users
 
 2017-01-10 Frontend Multilanguage

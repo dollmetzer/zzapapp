@@ -18,9 +18,7 @@
         print_r($content);
         echo "</pre>\n\n";
     }
-
     ?>
-
 </footer>
 
 <?php

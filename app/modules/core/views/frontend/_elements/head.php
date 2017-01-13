@@ -45,10 +45,10 @@
             <li><a <?php if($content['nav_main'] == 'privacy') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/privacy'); ?>"><?php $this->lang('nav_privacy'); ?></a></li>
             <li><a <?php if($content['nav_main'] == 'imprint') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/imprint'); ?>"><?php $this->lang('nav_imprint'); ?></a></li>
             <?php if($this->userInGroup('guest')) { ?>
-                <li><a <?php if($content['nav_main'] == 'login') echo 'class="active" '; ?>href="<?php $this->buildURL('core/account/login'); ?>"><?php $this->lang('nav_login'); ?></a></li>
+                <li><a <?php if($content['nav_main'] == 'login') echo 'class="active" '; ?>href="<?php $this->buildURL('users/account/login'); ?>"><?php $this->lang('nav_login'); ?></a></li>
             <?php } ?>
             <?php if($this->userInGroup('administrator')) { ?>
-                <li><a href="<?php $this->buildURL('core/account/logout'); ?>"><?php $this->lang('nav_logout'); ?></a></li>
+                <li><a href="<?php $this->buildURL('users/account/logout'); ?>"><?php $this->lang('nav_logout'); ?></a></li>
             <?php } ?>
             <?php if($this->userInGroup('administrator')) { ?>
                 <li><a href="<?php $this->buildURL('core/admin'); ?>"><?php $this->lang('nav_admin'); ?></a></li>
