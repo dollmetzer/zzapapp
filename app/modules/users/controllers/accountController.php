@@ -38,6 +38,7 @@ class accountController extends \Application\modules\core\controllers\Controller
      */
     public $accessGroups = array(
         'login' => 'guest',
+        'logout' => 'user',
     );
 
 

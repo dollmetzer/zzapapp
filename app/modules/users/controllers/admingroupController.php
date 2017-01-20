@@ -116,7 +116,7 @@ class admingroupController extends \Application\modules\core\controllers\Control
 
         if (sizeof($this->request->params) < 1) {
             $this->request->forward($this->buildUrl('users/admingroup/index/0'),
-                $this->lang('error_core_parametermissing'),
+                $this->lang('error_core_parameter_missing'),
                 'error');
         }
         $gid = (int)$this->request->params[0];
@@ -196,7 +196,7 @@ class admingroupController extends \Application\modules\core\controllers\Control
 
         if (sizeof($this->request->params) < 1) {
             $this->request->forward($this->buildUrl('users/admingroup/index/0'),
-                $this->lang('error_core_parametermissing'),
+                $this->lang('error_core_parameter_missing'),
                 'error');
         }
         $gid = (int)$this->request->params[0];
@@ -256,7 +256,7 @@ class admingroupController extends \Application\modules\core\controllers\Control
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('users/admingroup/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/admingroup/index/0'), $this->lang('error_core_parameter_missing'),
                 'error');
         }
         $gid = (int)$this->request->params[0];

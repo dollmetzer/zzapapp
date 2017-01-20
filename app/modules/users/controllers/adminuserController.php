@@ -120,7 +120,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parameter_missing'),
                 'error');
         }
         $uid = (int)$this->request->params[0];
@@ -204,7 +204,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parameter_missing'),
                 'error');
         }
         $uid = (int)$this->request->params[0];
@@ -288,7 +288,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parameter_missing'),
                 'error');
         }
         $uid = (int)$this->request->params[0];
@@ -414,7 +414,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
     {
 
         if (sizeof($this->request->params) < 2) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parameter_missing'),
                 'error');
         }
 
@@ -446,7 +446,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
     {
 
         if (sizeof($this->request->params) < 2) {
-            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parametermissing'),
+            $this->forward($this->buildUrl('users/adminuser/index/0'), $this->lang('error_core_parameter_missing'),
                 'error');
         }
 

@@ -44,12 +44,40 @@
             <li><a <?php if($content['nav_main'] == 'terms') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/terms'); ?>"><?php $this->lang('nav_terms'); ?></a></li>
             <li><a <?php if($content['nav_main'] == 'privacy') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/privacy'); ?>"><?php $this->lang('nav_privacy'); ?></a></li>
             <li><a <?php if($content['nav_main'] == 'imprint') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/imprint'); ?>"><?php $this->lang('nav_imprint'); ?></a></li>
-            <?php if($this->userInGroup('guest')) { ?>
-                <li><a <?php if($content['nav_main'] == 'login') echo 'class="active" '; ?>href="<?php $this->buildURL('users/account/login'); ?>"><?php $this->lang('nav_login'); ?></a></li>
-            <?php } ?>
-            <?php if($this->userInGroup('administrator')) { ?>
-                <li><a href="<?php $this->buildURL('users/account/logout'); ?>"><?php $this->lang('nav_logout'); ?></a></li>
-            <?php } ?>
+            <?php
+            if(method_exists($this, 'getNavigation')) {
+                $navigation = $this->getNavigation('frontend');
+                foreach($navigation as $topitem=>$topnav) {
+                    if(!empty($topnav['group'])) {
+                        if(!$this->userInGroup($topnav['group'])) continue;
+                    }
+                    echo '<li>';
+                    echo '<a href="';
+                    echo $this->buildURL($topnav['url'], false);
+                    if ($content['nav_main'] == $topitem) {
+                        echo '" class="active';
+                    }
+                    echo '">';
+                    echo '<i class="fa fa-fw ' . $topnav['icon'] . '"></i> ';
+                    echo $this->lang('nav_' . $topitem, false);
+                    if(!empty($topnav['subnav'])) {
+                        echo '<span class="fa arrow"></span></a>';
+                        echo '<ul class="nav nav-second-level">';
+                        foreach($topnav['subnav'] as $subitem=>$subnav) {
+                            echo '<li><a href="';
+                            echo $this->buildURL($subnav['url'], false);
+                            echo '">';
+                            echo $this->lang('nav_'.$subitem, false);
+                            echo '</a></li>';
+                        }
+                        echo '</ul>';
+                    } else {
+                        echo '</a>';
+                    }
+                    echo "</li>\n";
+                }
+            }
+            ?>
             <?php if($this->userInGroup('administrator')) { ?>
                 <li><a href="<?php $this->buildURL('core/admin'); ?>"><?php $this->lang('nav_admin'); ?></a></li>
             <?php } ?>

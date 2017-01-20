@@ -62,24 +62,40 @@
                 <li>
                     <a href="<?php $this->buildURL('core/admin'); ?>" <?php if($content['nav_main'] == 'admin') echo 'class="active"'; ?>><i class="fa fa-dashboard fa-fw"></i> <?php $this->lang('nav_admin_dashboard'); ?></a>
                 </li>
-                <li>
-                    <a href="<?php $this->buildURL('users/adminuser'); ?>" <?php if($content['nav_main'] == 'adminuser') echo 'class="active"'; ?>><i class="fa fa-user fa-fw"></i> <?php $this->lang('nav_admin_users'); ?></a>
-                </li>
-                <li>
-                    <a href="<?php $this->buildURL('users/admingroup'); ?>" <?php if($content['nav_main'] == 'admingroup') echo 'class="active"'; ?>><i class="fa fa-group fa-fw"></i> <?php $this->lang('nav_admin_groups'); ?></a>
-                </li>
-                <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="flot.html">Flot Charts</a>
-                        </li>
-                        <li>
-                            <a href="morris.html">Morris.js Charts</a>
-                        </li>
-                    </ul>
-                    <!-- /.nav-second-level -->
-                </li>
+                <?php
+                if(method_exists($this, 'getNavigation')) {
+                    $navigation = $this->getNavigation('backend');
+                    foreach($navigation as $topitem=>$topnav) {
+                        if(!empty($topnav['group'])) {
+                            if(!$this->userInGroup($topnav['group'])) continue;
+                        }
+                        echo '<li>';
+                        echo '<a href="';
+                        echo $this->buildURL($topnav['url'], false);
+                        if($content['nav_main'] == $topitem) {
+                            echo '" class="active';
+                        }
+                        echo '">';
+                        echo '<i class="fa fa-fw '.$topnav['icon'].'"></i> ';
+                        echo $this->lang('nav_'.$topitem, false);
+                        if(!empty($topnav['subnav'])) {
+                            echo '<span class="fa arrow"></span></a>';
+                            echo '<ul class="nav nav-second-level">';
+                            foreach($topnav['subnav'] as $subitem=>$subnav) {
+                                echo '<li><a href="';
+                                echo $this->buildURL($subnav['url'], false);
+                                echo '">';
+                                echo $this->lang('nav_'.$subitem, false);
+                                echo '</a></li>';
+                            }
+                            echo '</ul>';
+                        } else {
+                            echo '</a>';
+                        }
+                        echo "</li>\n";
+                    }
+                }
+                ?>
             </ul>
         </div>
         <!-- /.sidebar-collapse -->

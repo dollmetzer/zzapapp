@@ -4,4 +4,4 @@
 /composer.lock
 /app/config.php
 /logs/*
-/data/*
+/data/system/*.json

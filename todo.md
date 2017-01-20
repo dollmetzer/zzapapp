@@ -1,9 +1,10 @@
 To Do
 =====
 
-- Admin Modal message sichtbar machen
-- "active" class in selected navigation item
-- prüfen, ob alle fehlermeldungen übersetzt sind
+- Admin Navigation : Caching und Anzeige nach Gruppen
+
+- zzaplib::Form: prüfen auf URL, Email, Pattern und Schrittweite
+
 - User suchen - paginierung
 - Gruppen suchen
 - Minimum Frontend
@@ -11,4 +12,3 @@ To Do
 - REST API
 - REST API Access control
 
-- Admin Navigation und ggf Frontend Navigation über Module zusammensuchen

@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+2017-01-20 Navigation and language Core now selctable over all modules
+
+2017-01-13 Checked all errormessages are translated.
+
 2017-01-13 Fixed: Visibility of error/notification modal in Admin
 
 2017-01-11 Refactoring: adminuser und admingroup now in module users

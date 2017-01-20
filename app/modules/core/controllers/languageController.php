@@ -40,7 +40,7 @@ class languageController extends \dollmetzer\zzaplib\Controller
     {
 
         if (sizeof($this->request->params) < 1) {
-            $this->forward($this->buildUrl(''), $this->lang('error_core_parametermissing'), 'error');
+            $this->forward($this->buildUrl(''), $this->lang('error_core_parameter_missing'), 'error');
         }
         $language = $this->request->params[0];
 
