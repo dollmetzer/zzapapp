@@ -39,6 +39,8 @@ class accountController extends \Application\modules\core\controllers\Controller
     public $accessGroups = array(
         'login' => 'guest',
         'logout' => 'user',
+        'register' => 'guest',
+        'confirm' => 'guest'
     );
 
 
@@ -113,6 +115,167 @@ class accountController extends \Application\modules\core\controllers\Controller
         $this->request->forward($this->buildURL(''), $this->lang('msg_users_logoutsuccess'), 'message');
 
     }
+
+    /**
+     * Show and process the register form
+     */
+    public function registerAction()
+    {
+
+        // if self registration is not allowed, forward to startpage
+        if ($this->config['register']['selfregister'] !== true) {
+            $this->request->forward($this->buildURL(''), $this->lang('error_core_accessdenied'), 'error');
+        }
+
+        $languages = array();
+        for ($i = 0; $i < sizeof($this->config['languages']); $i++) {
+            $languages[$this->config['languages'][$i]] = $this->lang('language_' . $this->config['languages'][$i]);
+        }
+
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
+        $form->name = 'registerform';
+        if($this->config['register']['separate_handle'] === true) {
+            $form->fields['handle'] = array(
+                'type' => 'text',
+                'required' => true,
+                'pattern' => '/^[a-z0-9_\-]*$/i',
+                'minlength' => 6,
+                'maxlength' => 32,
+                'help' => $this->lang('form_help_registerform_handle'),
+            );
+        }
+
+        if ($this->config['register']['mailcheck'] === true) {
+            $form->fields['email'] = array(
+                'type' => 'email',
+                'required' => true,
+                'maxlength' => 255,
+            );
+        }
+
+        $form->fields['password'] = array(
+            'type' => 'password',
+            'required' => true,
+            'minlength' => 8,
+            'maxlength' => 32,
+            'help' => $this->lang('form_help_registerform_password'),
+        );
+        $form->fields['password2'] = array(
+            'type' => 'password',
+            'required' => true,
+            'minlength' => 8,
+            'maxlength' => 32,
+        );
+        $form->fields['language'] = array(
+            'type' => 'select',
+            'required' => true,
+            'options' => $languages,
+            'value' => $this->session->user_language,
+        );
+        $form->fields['submit'] = array(
+            'type' => 'submit',
+            'value' => 'login',
+        );
+
+        if ($form->process()) {
+
+            $values = $form->getValues();
+
+            if($this->config['register']['separate_handle'] !== true) {
+                $values['handle'] = $values['email'];
+            }
+
+            // test, if username is already in use
+            $userModel = new \Application\modules\users\models\userModel($this->config);
+            $user = $userModel->getByHandle($values['handle']);
+            if (!empty($user)) {
+                if($this->config['register']['separate_handle'] === true) {
+                    $form->fields['handle']['error'] = $this->lang('error_users_handleexists');
+                } else {
+                    $form->fields['email']['error'] = $this->lang('error_users_emailexists');
+                }
+                $form->hasErrors = true;
+            }
+
+            // test, if first password matches the second password
+            if ($values['password'] != $values['password2']) {
+                $form->fields['password2']['error'] = $this->lang('error_users_passwordmismatch');
+                $form->hasErrors = true;
+            }
+
+            if ($form->hasErrors != true) {
+
+                $created = strftime('%Y-%m-%d %H:%H:%S');
+
+                // set confirmed value only, if no mailconfirm is set
+                if ($this->config['register']['mailcheck'] === true) {
+                    $confirmed = '0000-00-00 00:00:00';
+                } else {
+                    $confirmed = $created;
+                }
+
+                $confirmcode = substr(md5($values['handle'] . $values['password'] . $values['language'] . time()), 8);
+                $uid = $userModel->create(
+                    $values['handle'],
+                    $values['password'],
+                    $values['language'],
+                    1,
+                    $values['email'],
+                    $confirmcode,
+                    $created,
+                    $confirmed
+                );
+
+                // attach standard user group to new user
+                $groupModel = new \Application\modules\users\models\groupModel($this->config);
+                $group = $groupModel->getByName('user');
+                if (!empty($group)) {
+                    $groupModel->addUserGroup($uid, $group['id']);
+                }
+
+                // send mail
+                if ($this->config['register']['mailcheck'] === true) {
+                    if ($this->sendRegistrationMail($uid) === false) {
+                        $this->request->log('Sending registration of user ' . $values['handle'] . ' failed!');
+                    }
+                }
+
+                $this->request->forward($this->buildURL('users/account/confirm'), $this->lang('msg_users_registersuccess'),
+                    'notice');
+
+            }
+        }
+
+        $this->view->content['form'] = $form->getViewdata();
+        $this->view->content['title'] = $this->lang('title_users_register');
+
+    }
+
+    public function confirmAction() {
+
+    }
+
+    protected function sendRegistrationMail($_uid)
+    {
+
+        $userModel = new \Application\modules\users\models\userModel($this->config);
+        $user = $userModel->read((int)$_uid);
+        if (empty($user)) {
+            return false;
+        }
+
+        $mail = new \dollmetzer\zzaplib\Mail($this->config, $this->session, $this->request);
+        return $mail->send(
+            'modules/users/views/frontend/_mail/register_' . $this->session->user_language . '.php',
+            $user,
+            $this->lang('mailsubject_users_register'),
+            $user['email']
+        );
+
+    }
+
+
+
 
 
 }
