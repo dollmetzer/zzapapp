@@ -210,8 +210,10 @@ class accountController extends \Application\modules\core\controllers\Controller
                 // set confirmed value only, if no mailconfirm is set
                 if ($this->config['register']['mailcheck'] === true) {
                     $confirmed = '0000-00-00 00:00:00';
+                    $active = 0;
                 } else {
                     $confirmed = $created;
+                    $active = 1;
                 }
 
                 $confirmcode = substr(md5($values['handle'] . $values['password'] . $values['language'] . time()), 8);
@@ -219,7 +221,7 @@ class accountController extends \Application\modules\core\controllers\Controller
                     $values['handle'],
                     $values['password'],
                     $values['language'],
-                    1,
+                    $active,
                     $values['email'],
                     $confirmcode,
                     $created,
@@ -251,7 +253,71 @@ class accountController extends \Application\modules\core\controllers\Controller
 
     }
 
-    public function confirmAction() {
+    /**
+     * show and process register confirmation form
+     */
+    public function confirmAction()
+    {
+
+        $confirmcode = '';
+        if (sizeof($this->request->params) > 0) {
+            $confirmcode = $this->request->params[0];
+        }
+
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
+        $form->action = $this->buildUrl('users/account/confirm');
+        $form->name = 'confirmform';
+        $form->fields = array(
+            'confirmcode' => array(
+                'type' => 'text',
+                'required' => true,
+                'pattern' => '/^[a-z0-9]{8}$/i',
+                'maxlength' => 8,
+                'help' => $this->lang('form_help_confirmcode'),
+            ),
+            'submit' => array(
+                'type' => 'submit',
+                'value' => 'confirm'
+            ),
+        );
+
+        if (empty($confirmcode)) {
+            if ($form->process()) {
+
+                $values = $form->getValues();
+                $confirmcode = $values['confirmcode'];
+
+            }
+        }
+
+        // try to confirm registration, if code is present
+        if (!empty($confirmcode)) {
+
+            $userModel = new \Application\modules\users\models\userModel($this->config);
+            $user = $userModel->getByConfirmcode($confirmcode);
+            if (!empty($user)) {
+                $data = array(
+                    'active' => 1,
+                    'confirmcode' => '',
+                    'confirmed' => strftime('%Y-%m-%d %H:%M:%S')
+                );
+                $userModel->update($user['id'], $data);
+
+                // send confirmation mail
+                if ($this->sendConfirmationMail($user['id']) === false) {
+                    $this->request->log('Sending confirmationmail for user ' . $values['handle'] . ' failed!');
+                }
+
+                $this->forward($this->buildURL(''), $this->lang('msg_users_confirmsuccess'), 'notice');
+            } else {
+                $form->fields['confirmcode']['error'] = $this->lang('form_error_illegal_confirmcode');
+            }
+
+
+        }
+
+        $this->view->content['form'] = $form->getViewdata();
+        $this->view->content['title'] = $this->lang('title_users_confirm');
 
     }
 
@@ -274,8 +340,24 @@ class accountController extends \Application\modules\core\controllers\Controller
 
     }
 
+    protected function sendConfirmationMail($_uid)
+    {
 
+        $userModel = new \Application\modules\users\models\userModel($this->config);
+        $user = $userModel->read((int)$_uid);
+        if (empty($user)) {
+            return false;
+        }
 
+        $mail = new \dollmetzer\zzaplib\Mail($this->config, $this->session, $this->request);
+        return $mail->send(
+            'modules/users/views/frontend/_mail/confirm_' . $this->session->user_language . '.php',
+            $user,
+            $this->lang('mailsubject_users_confirm'),
+            $user['email']
+        );
+
+    }
 
 
 }

@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-01-21 Register confirmation added
+
 2017-01-20 Register Form with confirmation mail added
 
 2017-01-20 Navigation and language Core now selctable over all modules

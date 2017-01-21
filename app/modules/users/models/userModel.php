@@ -191,8 +191,7 @@ class userModel extends \dollmetzer\zzaplib\DBModel
 
         $sql = "SELECT *
                 FROM user
-                WHERE confirmcode = " . $this->dbh->quote($_confirmcode) . "
-                    AND active=1";
+                WHERE confirmcode = " . $this->dbh->quote($_confirmcode);
 
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
