@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+2017-01-22 Password reset working
+
+2017-01-22 Set lastlogin on login
+
 2017-01-21 Register confirmation added
 
 2017-01-20 Register Form with confirmation mail added

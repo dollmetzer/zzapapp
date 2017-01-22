@@ -40,7 +40,8 @@ class accountController extends \Application\modules\core\controllers\Controller
         'login' => 'guest',
         'logout' => 'user',
         'register' => 'guest',
-        'confirm' => 'guest'
+        'confirm' => 'guest',
+        'pwdreset' => 'guest',
     );
 
 
@@ -90,6 +91,7 @@ class accountController extends \Application\modules\core\controllers\Controller
                     $groupModel = new \Application\modules\users\models\groupModel($this->config);
                     $groups = $groupModel->getUserGroups($user['id']);
                     $this->session->login($user, $groups);
+                    $userModel->setLastlogin($user['id']);
                     $this->request->forward($this->buildURL(''), $this->lang('msg_users_loginsuccess'), 'message');
 
                 }
@@ -318,6 +320,59 @@ class accountController extends \Application\modules\core\controllers\Controller
 
         $this->view->content['form'] = $form->getViewdata();
         $this->view->content['title'] = $this->lang('title_users_confirm');
+
+    }
+
+    /**
+     * Show and process the password reset page
+     */
+    public function pwdresetAction()
+    {
+
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
+        $form->name = 'pwdresetform';
+        $form->fields = array(
+            'handle' => array(
+                'type' => 'text',
+                'required' => true,
+                'maxlength' => 32,
+            ),
+            'submit' => array(
+                'type' => 'submit',
+                'value' => 'reset'
+            ),
+        );
+
+
+        if ($form->process()) {
+
+            $values = $form->getValues();
+
+            $userModel = new \Application\modules\users\models\userModel($this->config);
+            $user = $userModel->getByHandle($values['handle']);
+
+            if (empty($user)) {
+                $form->fields['handle']['error'] = $this->lang('form_error_handle_unknown');
+            } else {
+
+                $user['newpwd'] = substr(uniqid(time()), 8);
+                $userModel->setPassword($user['id'], $user['newpwd']);
+
+                $mail = new \dollmetzer\zzaplib\Mail($this->config, $this->session, $this->request);
+                $mail->send(
+                    'modules/users/views/frontend/_mail/resetpwd_' . $this->session->user_language . '.php',
+                    $user,
+                    $this->lang('mailsubject_users_resetpwd'),
+                    $user['email']
+                );
+
+                $this->request->forward($this->buildURL(''), $this->lang('msg_users_resetpwdsuccess'), 'notice');
+
+            }
+        }
+
+        $this->view->content['form'] = $form->getViewdata();
+        $this->view->content['title'] = $this->lang('title_users_pwdreset');
 
     }
 
