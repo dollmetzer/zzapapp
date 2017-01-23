@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-01-23 First improvement of frontend styles
+
 2017-01-22 Password reset working
 
 2017-01-22 Set lastlogin on login

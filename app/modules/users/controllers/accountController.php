@@ -42,6 +42,7 @@ class accountController extends \Application\modules\core\controllers\Controller
         'register' => 'guest',
         'confirm' => 'guest',
         'pwdreset' => 'guest',
+        'settings' => 'user',
     );
 
 
@@ -375,6 +376,86 @@ class accountController extends \Application\modules\core\controllers\Controller
         $this->view->content['title'] = $this->lang('title_users_pwdreset');
 
     }
+
+
+    public function settingsAction()
+    {
+
+        $languages = array();
+        for ($i = 0; $i < sizeof($this->config['languages']); $i++) {
+            $languages[$this->config['languages'][$i]] = $this->lang('language_' . $this->config['languages'][$i]);
+        }
+
+        $userModel = new \Application\modules\users\models\userModel($this->config);
+        $user = $userModel->read($this->session->user_id);
+
+        $form = new \dollmetzer\zzaplib\Form($this->request, $this->view);
+        $form->name = 'settingsform';
+
+        $form->fields['email'] = array(
+            'type' => 'email',
+            'required' => true,
+            'maxlength' => 255,
+            'value' => $user['email'],
+        );
+        $form->fields['password'] = array(
+            'type' => 'password',
+            'minlength' => 8,
+            'maxlength' => 32,
+            'help' => $this->lang('form_help_registerform_password'),
+        );
+        $form->fields['password2'] = array(
+            'type' => 'password',
+            'minlength' => 8,
+            'maxlength' => 32,
+        );
+        $form->fields['language'] = array(
+            'type' => 'select',
+            'required' => true,
+            'options' => $languages,
+            'value' => $user['language'],
+        );
+
+        $form->fields['submit'] = array(
+            'type' => 'submit',
+        );
+
+        if ($form->process()) {
+
+            $values = $form->getValues();
+
+            // test, if first password matches the second password
+            if ($values['password'] != $values['password2']) {
+                $form->fields['password2']['error'] = $this->lang('error_users_passwordmismatch');
+                $form->hasErrors = true;
+            }
+
+            if ($form->hasErrors === false) {
+
+                // update normal data
+                $data = array(
+                    'email' => $values['email'],
+                    'language' => $values['language'],
+                );
+                $userModel->update($user['id'], $data);
+
+                // set password?
+                if (!empty($values['password'])) {
+                    $userModel->setPassword($user['id'], $values['password']);
+                }
+
+                $this->request->forward($this->buildURL(''), $this->lang('msg_users_settingssaved'), 'message');
+
+            }
+
+        }
+
+        $this->view->content['form'] = $form->getViewdata();
+        $this->view->content['title'] = sprintf($this->lang('title_users_settings'), $user['handle']);
+
+    }
+
+
 
     protected function sendRegistrationMail($_uid)
     {

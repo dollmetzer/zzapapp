@@ -11,8 +11,14 @@ return array(
         'group' => 'user'
     ),
     'register' => array(
-        'icon' => '',
+        'icon' => 'fa-id-card-o',
         'url' => 'users/account/register',
         'group' => 'guest'
+    ),
+    'usersettings' => array(
+        'icon' => 'fa-cog',
+        'url' => 'users/account/settings',
+        'group' => 'user'
     )
+
 );

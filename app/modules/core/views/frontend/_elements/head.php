@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -13,11 +12,12 @@
         }
         ?></title>
 
+    <!-- jQuery -->
     <script src="/backend/vendor/jquery/jquery.min.js"></script>
 
-    <link rel="shortcut icon" href="/frontend/img/favicon.ico">
-    <link rel="apple-itouch-icon" href="/frontend/img/apple-touch-icon.png">
-
+    <!-- Custom Fonts -->
+    <link href="/backend/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
     <link href="/frontend/css/app.css" rel="stylesheet">
     <?php
     $css = $this->getCSS();
@@ -32,20 +32,17 @@
     }
     ?>
 
-    <script src="/backend/vendor/jquery/jquery.min.js"></script>
+    <link rel="shortcut icon" href="/frontend/img/favicon.ico">
+    <link rel="apple-itouch-icon" href="/frontend/img/apple-touch-icon.png">
 
 </head>
 <body>
 
 <header>
+    <h1><?php echo $this->config['title']; ?></h1>
     <nav>
         <ul>
-            <li><a <?php if($content['nav_main'] == 'index') echo 'class="active" '; ?>href="<?php $this->buildURL(''); ?>"><?php $this->lang('nav_home'); ?></a></li>
-            <li><a <?php if($content['nav_main'] == 'terms') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/terms'); ?>"><?php $this->lang('nav_terms'); ?></a></li>
-            <li><a <?php if($content['nav_main'] == 'privacy') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/privacy'); ?>"><?php $this->lang('nav_privacy'); ?></a></li>
-            <li><a <?php if($content['nav_main'] == 'imprint') echo 'class="active" '; ?>href="<?php $this->buildURL('core/index/imprint'); ?>"><?php $this->lang('nav_imprint'); ?></a></li>
             <?php
-            if(method_exists($this, 'getNavigation')) {
                 $navigation = $this->getNavigation('frontend');
                 foreach($navigation as $topitem=>$topnav) {
                     if(!empty($topnav['group'])) {
@@ -76,14 +73,10 @@
                     }
                     echo "</li>\n";
                 }
-            }
-            ?>
-            <?php if($this->userInGroup('administrator')) { ?>
-                <li><a href="<?php $this->buildURL('core/admin'); ?>"><?php $this->lang('nav_admin'); ?></a></li>
-            <?php } ?>
-            <?php if($this->session->user_id != 0) {
-                echo '<li>( '.$this->session->user_handle." )</li>\n";
-            } ?>
+
+                 if($this->session->user_id != 0) {
+                    echo '<li>( '.$this->session->user_handle." )</li>\n";
+                } ?>
         </ul>
     </nav>
 </header>

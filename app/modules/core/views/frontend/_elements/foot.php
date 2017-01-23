@@ -1,10 +1,16 @@
 </div>
 
-<footer>[
+<footer>&copy;&nbsp;2017 Dirk Ollmetzer&nbsp;[
     <?php
-    foreach( $this->config['languages'] as $l ) {
-        echo '<a href="'.$this->buildURL('core/language/switchto/'.$l, false).'">'.$l.'</a> ';
-    } ?>]
+    for($i=0; $i<sizeof($this->config['languages']); $i++) {
+        if($i > 0) echo '|&nbsp;';
+        if($this->config['languages'][$i] == $this->session->user_language) {
+            echo '<strong>'.$this->config['languages'][$i].'</strong>&nbsp;';
+        } else {
+            echo '<a href="'.$this->buildURL('core/language/switchto/'.$this->config['languages'][$i], false).'">'.$this->config['languages'][$i].'</a>&nbsp;';
+        }
+    }
+?>]
 
     <?php
     if(DEBUG_SESSION === true) {
