@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-01-24 Admin: Delete Cache, Styles for forms
+
 2017-01-23 First improvement of frontend styles
 
 2017-01-22 Password reset working

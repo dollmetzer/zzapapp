@@ -39,6 +39,7 @@ class adminController extends Controller
         'index' => 'administrator',
         'test' => 'administrator',
         'form' => 'administrator',
+        'deletecache' => 'administrator',
     );
 
 
@@ -66,6 +67,23 @@ class adminController extends Controller
         $this->view->theme = 'backend';
 
     }
+
+    /**
+     * Delete Cache files for navigation and language and forward to admin
+     */
+    public function deletecacheAction() {
+
+        unlink(PATH_DATA.'system/navigation_frontend.json');
+        unlink(PATH_DATA.'system/navigation_backend.json');
+
+        foreach($this->config['languages'] as $lang) {
+            unlink(PATH_DATA.'system/lang_core_'.$lang.'.json');
+        }
+
+        $this->forward($this->buildUrl('core/admin'), $this->lang('msg_cache_deleted'), 'error');
+
+    }
+
 
     public function testAction()
     {
