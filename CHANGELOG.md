@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-03-05 Admin: Add module overview
+
 2017-03-05 Admin: Added search for groups
 
 2017-01-24 Admin: Delete Cache, Styles for forms
