@@ -61,6 +61,10 @@ class adminController extends Controller
     public function indexAction()
     {
 
+        $modules = $this->request->getModuleList();
+        $this->view->content['modules'] = $modules;
+
+
         $overviewAlerts = array();
         $overviewTasks = array();
         $overviewMessages = array();
@@ -90,7 +94,7 @@ class adminController extends Controller
             unlink(PATH_DATA.'system/lang_core_'.$lang.'.json');
         }
 
-        $this->forward($this->buildUrl('core/admin'), $this->lang('msg_cache_deleted'), 'error');
+        $this->forward($this->buildUrl('core/admin'), $this->lang('msg_cache_deleted'), '');
 
     }
 
