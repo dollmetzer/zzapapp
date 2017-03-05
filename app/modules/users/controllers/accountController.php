@@ -367,7 +367,7 @@ class accountController extends \Application\modules\core\controllers\Controller
                     $user['email']
                 );
 
-                $this->request->forward($this->buildURL(''), $this->lang('msg_users_resetpwdsuccess'), 'notice');
+                $this->request->forward($this->buildURL('users/account/login'), $this->lang('msg_users_resetpwdsuccess'), 'notice');
 
             }
         }

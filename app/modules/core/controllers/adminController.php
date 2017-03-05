@@ -44,6 +44,18 @@ class adminController extends Controller
 
 
     /**
+     * Method is called before any controller action.
+     * Overload in the application controller to use
+     */
+    public function before()
+    {
+
+        $this->view->content['searchtext'] = $this->lang('txt_search_placeholder');
+        $this->view->theme = 'backend';
+
+    }
+
+    /**
      * Show admin dashboard
      */
     public function indexAction()
@@ -63,8 +75,6 @@ class adminController extends Controller
         $this->view->content['overviewTasks'] = $overviewTasks;
 
         $this->view->content['overviewAlerts'] = $overviewAlerts;
-
-        $this->view->theme = 'backend';
 
     }
 

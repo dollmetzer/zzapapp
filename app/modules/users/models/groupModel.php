@@ -157,19 +157,49 @@ class groupModel extends \dollmetzer\zzaplib\DBModel
     /**
      * Search for a group
      *
-     * @todo: pagination and sorting
-     *
      * @param string $_searchterm
-     * @return array groups
+     * @param integer $_first
+     * @param integer $_length
+     * @param string $_sortColumn
+     * @param string $_sortDirection
+     * @return array users
      */
     public function search($_searchterm, $_first = null, $_length = null, $_sortColumn = null, $_sortDirection = 'asc')
     {
 
-        $sql = "SELECT * FROM `group` WHERE description LIKE " . $this->dbh->quote($_searchterm);
+        $sql = "SELECT * FROM `group` WHERE name LIKE " . $this->dbh->quote($_searchterm);
+        if ($_sortColumn) {
+            if ($_sortDirection != 'desc') {
+                $_sortDirection = 'asc';
+            }
+            $sql .= ' ORDER BY ' . $_sortColumn . ' ' . strtoupper($_sortDirection);
+
+        }
+        if (isset($_first) && isset($_length)) {
+            $sql .= ' LIMIT ' . (int)$_first . ',' . (int)$_length;
+        }
 
         $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        $list = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $list;
+
+    }
+
+    /**
+     * Get the number of results for a search
+     *
+     * @param string $_searchterm
+     * @return array
+     */
+    public function getSearchEntries($_searchterm)
+    {
+
+        $sql = "SELECT COUNT(*) as entries FROM `group` WHERE name LIKE " . $this->dbh->quote($_searchterm);
+        $stmt = $this->dbh->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result['entries'];
 
     }
 

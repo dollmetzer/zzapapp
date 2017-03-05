@@ -17,6 +17,8 @@
 
     <!-- Custom Fonts -->
     <link href="/backend/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core CSS -->
+    <link href="/backend/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/frontend/css/app.css" rel="stylesheet">
     <?php

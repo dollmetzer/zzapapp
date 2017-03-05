@@ -58,7 +58,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
     {
 
         $this->view->content['searchurl'] = $this->buildURL('users/adminuser/search');
-        $this->view->content['searchtext'] = 'Search for user...';
+        $this->view->content['searchtext'] = $this->lang('txt_user_search_placeholder');
         $this->view->theme = 'backend';
 
     }
@@ -401,7 +401,7 @@ class adminuserController extends \Application\modules\core\controllers\Controll
 
         }
 
-        $this->view->content['title'] = 'User Search';
+        $this->view->content['title'] = $this->lang('title_user_search');
         $this->view->content['searchterm'] = $searchterm;
 
     }

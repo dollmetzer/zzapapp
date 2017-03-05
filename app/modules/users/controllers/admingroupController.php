@@ -53,7 +53,7 @@ class admingroupController extends \Application\modules\core\controllers\Control
     {
 
         $this->view->content['searchurl'] = $this->buildURL('users/admingroup/search');
-        $this->view->content['searchtext'] = 'Search for group...';
+        $this->view->content['searchtext'] = $this->lang('txt_group_search_placeholder');
         $this->view->theme = 'backend';
 
     }
@@ -283,9 +283,57 @@ class admingroupController extends \Application\modules\core\controllers\Control
     public function searchAction()
     {
 
-        print_r($_POST);
+        $searchterm = '';
+
+        if (!empty($_POST['searchterm'])) {
+
+            $searchterm = htmlentities(trim($_POST['searchterm']));
+            $searchterm = str_replace('*', '%', $searchterm);
+
+            $groupModel = new \Application\modules\users\models\groupModel($this->config);
+
+            // set table columns
+            $columns = $this->getColumns();
+            $table = new \dollmetzer\zzaplib\Table();
+            $table->setColumns($columns);
+
+            // calculate pagination
+            $page = 0;
+            if (sizeof($this->request->params) > 0) {
+                $page = (int)$this->request->params[0];
+            }
+            $table->page = $page;
+            $entriesPerPage = 10;
+            $table->entriesPerPage = $entriesPerPage;
+
+            $table->calculateMaxPage($groupModel->getSearchEntries($searchterm));
+            $first = $page * $entriesPerPage;
+            $table->urlPage = 'users/admingroup/search';
+            $table->urlSort = 'users/admingroup/sort';
+            $table->urlNew = 'users/admingroup/new';
+            $table->urlDetails = 'users/admingroup/details';
+            $table->urlEdit = 'users/admingroup/edit';
+            $table->urlDelete = 'users/admingroup/delete';
+
+            // sorting
+            $sortColumn = $this->session->sortUserCol;
+            if (!$sortColumn) {
+                $sortColumn = 'name';
+            }
+            $table->sortColumn = $sortColumn;
+            $sortDirection = $this->session->sortUserDir;
+            if (!$sortDirection) {
+                $sortDirection = 'asc';
+            }
+            $table->sortDirection = $sortDirection;
+            $table->setRows($groupModel->search($searchterm, $first, $entriesPerPage, $sortColumn, $sortDirection));
+
+            $this->view->content['table'] = $table;
+
+        }
 
         $this->view->content['title'] = $this->lang('title_group_search');
+        $this->view->content['searchterm'] = $searchterm;
 
     }
 
