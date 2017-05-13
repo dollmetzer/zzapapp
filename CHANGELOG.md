@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-05-13 Module Controller for Module administration
+
 2017-03-05 Admin: Add module overview
 
 2017-03-05 Admin: Added search for groups

@@ -62,6 +62,9 @@
                 <li>
                     <a href="<?php $this->buildURL('core/admin'); ?>" <?php if($content['nav_main'] == 'admin') echo 'class="active"'; ?>><i class="fa fa-dashboard fa-fw"></i> <?php $this->lang('nav_admin_dashboard'); ?></a>
                 </li>
+                <li>
+                    <a href="<?php $this->buildURL('core/adminmodule'); ?>" <?php if($content['nav_main'] == 'adminmodule') echo 'class="active"'; ?>><i class="fa fa-cubes fa-fw"></i> <?php $this->lang('nav_admin_module'); ?></a>
+                </li>
                 <?php
                 if(method_exists($this, 'getNavigation')) {
                     $navigation = $this->getNavigation('backend');
