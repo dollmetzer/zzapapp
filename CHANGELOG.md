@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-05-14 Deletion of language and navigation cache files moved to zzablib View class
+
 2017-05-13 Module Controller for Module administration
 
 2017-03-05 Admin: Add module overview

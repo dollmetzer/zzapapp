@@ -73,17 +73,16 @@ class adminmoduleController  extends Controller
      */
     public function deletecacheAction() {
 
-        unlink(PATH_DATA.'system/navigation_frontend.json');
-        unlink(PATH_DATA.'system/navigation_backend.json');
-
-        foreach($this->config['languages'] as $lang) {
-            unlink(PATH_DATA.'system/lang_core_'.$lang.'.json');
-        }
+        $this->view->deleteNavigation();
+        $this->view->deleteLanguageCore();
 
         $this->forward($this->buildUrl('core/adminmodule'), $this->lang('msg_cache_deleted'), '');
 
     }
 
+    /**
+     * Activate a module
+     */
     public function activateAction() {
 
         if(empty($this->request->params)) {
@@ -100,10 +99,15 @@ class adminmoduleController  extends Controller
 
         }
 
+
+
         $this->forward($this->buildUrl('core/adminmodule'), $this->lang('msg_module_activated'), '');
 
     }
 
+    /**
+     * Deactivate a module
+     */
     public function deactivateAction() {
 
         if(empty($this->request->params)) {
@@ -118,6 +122,9 @@ class adminmoduleController  extends Controller
             $this->request->log('core::adminmoduleController::deactivateAction() failed. Flag active for module '.$moduleName.' was not true');
             $this->forward($this->buildUrl('core/adminmodule'), $this->lang('error_module_deactivate'), 'error');
         }
+
+
+
 
         $this->forward($this->buildUrl('core/adminmodule'), $this->lang('msg_module_deactivated'), '');
 
