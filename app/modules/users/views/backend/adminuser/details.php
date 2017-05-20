@@ -60,7 +60,9 @@ include PATH_APP.'modules/core/views/backend/_elements/head.php'; ?>
         <td>&nbsp;</td>
         <td>
             <a href="<?php $this->buildUrl('users/adminuser/edit/'.$content['user']['id']); ?>" class="btn btn-default" ><?php $this->lang('link_core_edit'); ?></a>
+            <?php if($content['user']['id'] != $this->session->user_id) { ?>
             <a data-toggle="modal" data-target="#confirm-delete" data-href="<?php $this->buildUrl('users/adminuser/delete/'.$content['user']['id']); ?>" class="btn btn-danger" ><?php $this->lang('link_core_delete'); ?></a>
+            <?php } ?>
         </td>
     </tr>
 </table>

@@ -3,5 +3,7 @@
 /vendor/
 /composer.lock
 /app/config.php
+/data/*
 /logs/*
+/tmp/*
 /data/system/*.json

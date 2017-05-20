@@ -1,1 +1,0 @@
-This directory contains cache files from the system (e.g. navigation, language snippets)
