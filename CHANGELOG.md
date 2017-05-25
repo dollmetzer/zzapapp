@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-05-25 Controller now uses isAllowed from zzaplib Controller class
+
 2017-05-20 Admin naviagtion element user changed
 
 2017-05-14 Deletion of language and navigation cache files moved to zzablib View class

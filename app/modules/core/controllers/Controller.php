@@ -38,43 +38,6 @@ class Controller extends \dollmetzer\zzaplib\Controller
     protected $accessGroups;
 
     /**
-     * Check, if call of a certain action is allowed
-     *
-     * Checks, if the current user is in the group for the controller action.
-     * If no group access array is found, access is granted.
-     * If an group access array is found, but no entry for the actionname, access is denied
-     * If an entry is found and the user is group member, access is granted.
-     * If an entry is found and the user is not group meber, access is denied.
-     *
-     * @param string $_actionName
-     * @return boolean
-     */
-    public function isAllowed($_actionName)
-    {
-
-        // access forbidden by default
-        $result = false;
-
-        if (empty($this->accessGroups)) {
-
-            // access granted, if group access definition array is empty
-            $result = true;
-
-        } elseif (!empty($this->accessGroups[$_actionName])) {
-
-            // access granted, if user is in defined group
-            $userGroups = $this->session->groups;
-            if(in_array($this->accessGroups[$_actionName], $userGroups)) {
-                $result = true;
-            }
-
-        }
-
-        return $result;
-
-    }
-
-    /**
      *
      */
     public function quicklogin()
