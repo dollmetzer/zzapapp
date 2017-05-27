@@ -13,7 +13,9 @@
         ?></title>
 
     <!-- jQuery -->
-    <script src="/backend/vendor/jquery/jquery.min.js"></script>
+    <!--script src="/backend/vendor/jquery/jquery.min.js"></script-->
+    <script src="<?php $this->buildMediaURL('frontend/js/jquery-3.2.1.min.js'); ?>"></script>
+    <script src="<?php $this->buildMediaURL('frontend/js/app.js'); ?>"></script>
 
     <!-- Custom Fonts -->
     <link href="/backend/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -41,8 +43,12 @@
 <body>
 
 <header>
+    <a id="navicon"><i class="fa fa-bars"></i></a>
+    <a id="navicon-close"><i class="fa fa-close"></i></a>
+    <i id="logo" class="fa fa-paper-plane-o"></i>
+
     <h1><?php echo $this->config['title']; ?></h1>
-    <nav>
+    <nav id="mainnavi">
         <ul>
             <?php
                 $navigation = $this->getNavigation('frontend');
@@ -77,7 +83,7 @@
                 }
 
                  if($this->session->user_id != 0) {
-                    echo '<li>( '.$this->session->user_handle." )</li>\n";
+                    echo '<li><i class="fa fa-fw"></i> ( '.$this->session->user_handle." )</li>\n";
                 } ?>
         </ul>
     </nav>

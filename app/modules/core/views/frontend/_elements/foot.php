@@ -1,6 +1,6 @@
 </div>
 
-<footer>&copy;&nbsp;2017 Dirk Ollmetzer&nbsp;[
+<footer><p>&copy;&nbsp;2017 Dirk Ollmetzer&nbsp;[
     <?php
     for($i=0; $i<sizeof($this->config['languages']); $i++) {
         if($i > 0) echo '|&nbsp;';
@@ -10,7 +10,7 @@
             echo '<a href="'.$this->buildURL('core/language/switchto/'.$this->config['languages'][$i], false).'">'.$this->config['languages'][$i].'</a>&nbsp;';
         }
     }
-?>]
+    ?>]</p>
 
     <?php
     if(DEBUG_SESSION === true) {
