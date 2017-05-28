@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-05-27 Removed hint to bootstrap.min.css.map to prevent fals request from Chrome
+
 2017-05 27 Navigation now sorted. Styles optimized for mobile with slide toggle
 
 2017-05-25 Controller now uses isAllowed from zzaplib Controller class

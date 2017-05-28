@@ -12,24 +12,26 @@
         }
         ?></title>
 
-    <!-- jQuery -->
-    <!--script src="/backend/vendor/jquery/jquery.min.js"></script-->
+    <!-- jQuery and main JS -->
     <script src="<?php $this->buildMediaURL('frontend/js/jquery-3.2.1.min.js'); ?>"></script>
     <script src="<?php $this->buildMediaURL('frontend/js/app.js'); ?>"></script>
 
     <!-- Custom Fonts -->
     <link href="/backend/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
     <!-- Bootstrap Core CSS -->
     <link href="/backend/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="/frontend/css/app.css" rel="stylesheet">
+
     <?php
     $css = $this->getCSS();
     if(!empty($css)) {
         echo "<!-- Additional CSS Files -->\n";
         for($i=0; $i<sizeof($css); $i++) {
             echo '    <link href="';
-            echo $css[$i];
+            echo $this->buildMediaURL($css[$i], false);
             echo '" rel="stylesheet">';
             echo "\n";
         }

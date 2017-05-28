@@ -33,7 +33,7 @@ if(!empty($js)) {
     echo "<!-- Additional JS Files -->\n";
     for($i=0; $i<sizeof($js); $i++) {
         echo '    <script src="';
-        echo $js[$i];
+        echo $this->buildMediaURL($js[$i], false);
         echo '"></script>';
         echo "\n";
     }
