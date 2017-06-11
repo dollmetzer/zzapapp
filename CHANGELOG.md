@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-06-11 Media URL now working with app in subdirectory
+
 2017-06-11 Working on the documentation
 
 2017-05-27 Removed hint to bootstrap.min.css.map to prevent false request from Chrome

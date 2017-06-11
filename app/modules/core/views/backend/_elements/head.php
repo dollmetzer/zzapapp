@@ -14,22 +14,22 @@
         if(!empty($content['title'])) {
             echo ' -  '.$content['title'];
         }
-    ?></title>
+        ?></title>
 
     <!-- jQuery -->
-    <script src="/backend/vendor/jquery/jquery.min.js"></script>
+    <script src="<?php $this->buildMediaURL('backend/vendor/jquery/jquery.min.js'); ?>"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="/backend/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="<?php $this->buildMediaURL('backend/vendor/bootstrap/js/bootstrap.min.js'); ?>"></script>
 
 
     <!-- Bootstrap Core CSS -->
-    <link href="/backend/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php $this->buildMediaURL('backend/vendor/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <!-- MetisMenu CSS -->
-    <link href="/backend/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="<?php $this->buildMediaURL('backend/vendor/metisMenu/metisMenu.min.css'); ?>" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="/backend/dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="<?php $this->buildMediaURL('backend/dist/css/sb-admin-2.css'); ?>" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="/backend/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="<?php $this->buildMediaURL('backend/vendor/font-awesome/css/font-awesome.min.css'); ?>" rel="stylesheet" type="text/css">
 
     <?php
     $css = $this->getCSS();
@@ -48,18 +48,18 @@
 
 <body>
 
-    <div id="wrapper">
+<div id="wrapper">
 
-<?php include PATH_APP.'modules/core/views/backend/_elements/navigation.php'; ?>
+    <?php include PATH_APP.'modules/core/views/backend/_elements/navigation.php'; ?>
 
-        <div id="page-wrapper">
+    <div id="page-wrapper">
 
 
-            <?php if(!empty($content['title'])) { ?>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header"><?php echo $content['title']; ?></h1>
-                    </div>
+        <?php if(!empty($content['title'])) { ?>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header"><?php echo $content['title']; ?></h1>
                 </div>
-            <?php } ?>
+            </div>
+        <?php } ?>
 
