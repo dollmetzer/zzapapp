@@ -8,6 +8,7 @@
  * @copyright (c) 2006-2017, Dirk Ollmetzer
  * @package Application
  */
+
 namespace Application;
 
 // include composer packages

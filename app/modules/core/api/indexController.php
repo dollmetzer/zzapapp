@@ -29,15 +29,17 @@ namespace Application\modules\core\api;
  * @package zzap_app
  * @subpackage core
  */
-class indexController
+class indexController extends \dollmetzer\zzaplib\ApiController
 {
 
-    public function __construct(\dollmetzer\zzaplib\Api $_api)
-    {
-        $this->api = $_api;
-    }
-
+    /**
+     * Returns a list of API actions
+     *
+     * @return array
+     */
     public function getAction() {
+
+        return array($this->request->listApiCalls());
 
     }
 
