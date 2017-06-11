@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-06-11 DeleteCache now rebuilds module config
+
 2017-06-11 Media URL now working with app in subdirectory
 
 2017-06-11 Working on the documentation

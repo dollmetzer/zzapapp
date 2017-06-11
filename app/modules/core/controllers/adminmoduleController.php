@@ -67,7 +67,6 @@ class adminmoduleController  extends Controller
 
     }
 
-
     /**
      * Delete Cache files for navigation and language and forward to admin
      */
@@ -75,6 +74,7 @@ class adminmoduleController  extends Controller
 
         $this->view->deleteNavigation();
         $this->view->deleteLanguageCore();
+        $this->request->module->rebuildConfig();
 
         $this->forward($this->buildUrl('core/adminmodule'), $this->lang('msg_cache_deleted'), '');
 
