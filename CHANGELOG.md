@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2017-06-20 Form: added button and date elements, and labels can be disabled
+ 
 2017-06-11 DeleteCache now rebuilds module config
 
 2017-06-11 Media URL now working with app in subdirectory
