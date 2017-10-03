@@ -47,21 +47,21 @@ INSERT INTO `group` (`id`, `active`, `protected`, `name`, `description`) VALUES
 -- Tabellenstruktur für Tabelle `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `active` tinyint(1) unsigned NOT NULL DEFAULT '1',
+CREATE TABLE `user` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `active` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
   `handle` varchar(255) NOT NULL,
   `password` varchar(64) NOT NULL,
   `language` varchar(2) NOT NULL DEFAULT 'en',
   `email` varchar(255) NOT NULL,
-  `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `confirmed` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created` datetime DEFAULT NULL,
+  `confirmed` datetime DEFAULT NULL,
   `confirmcode` varchar(8) NOT NULL COMMENT 'Code for confirmin registration',
-  `lastlogin` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `token` varchar(32) NOT NULL COMMENT 'Token ist used for quicklogin',
-  `useragent` varchar(255) NOT NULL COMMENT 'useragent used at last login',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+  `lastlogin` datetime DEFAULT NULL,
+  `token` varchar(32) NOT NULL DEFAULT '' COMMENT 'Token ist used for quicklogin',
+  `useragent` varchar(255) NOT NULL DEFAULT '' COMMENT 'useragent used at last login'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 --
 -- Daten für Tabelle `user`

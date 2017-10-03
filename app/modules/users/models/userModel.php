@@ -297,7 +297,7 @@ class userModel extends \dollmetzer\zzaplib\DBModel
 
         $sql = "SELECT * FROM user WHERE created LIKE " . $this->dbh->quote($_date);
         if ($_isUnconfirmed === true) {
-            $sql .= " AND confirmed='0000-00-00 00:00:00'";
+            $sql .= " AND confirmed IS null'";
         }
 
         $stmt = $this->dbh->prepare($sql);

@@ -1,10 +1,9 @@
-/** Toggle main menu */
 $.when($.ready).then(function () {
 
     // Document is ready.
     console.log('Document is ready')
 
-
+    // open an close navigation
     $("#navicon").click(function(){
         console.log('Open Navigation')
         $("#navicon").css('display','none');
@@ -17,6 +16,11 @@ $.when($.ready).then(function () {
         $("#navicon").css('display','inline');
         $("#navicon-close").css('display','none');
         $("#mainnavi").slideUp();
+    });
+
+    // close alert boxes
+    $("#alertbox").click(function(){
+        $("#alertbox").slideUp();
     });
 
 });

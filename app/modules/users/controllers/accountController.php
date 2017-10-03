@@ -212,7 +212,7 @@ class accountController extends \Application\modules\core\controllers\Controller
 
                 // set confirmed value only, if no mailconfirm is set
                 if ($this->config['register']['mailcheck'] === true) {
-                    $confirmed = '0000-00-00 00:00:00';
+                    $confirmed = '';
                     $active = 0;
                 } else {
                     $confirmed = $created;

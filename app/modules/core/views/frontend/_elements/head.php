@@ -94,7 +94,7 @@
 <div class="content">
     <?php
     if (!empty($_SESSION['flasherror'])) {
-        echo '<div class="alert alert-danger alert-dismissible">';
+        echo '<div class="alert alert-danger alert-dismissible" id="alertbox">';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
         echo '<p><strong>' . $this->lang('msg_core_flasherror', false) . '</strong></p>';
         echo '<p>' . $_SESSION['flasherror'] . '<p>';
@@ -102,7 +102,7 @@
 
     }
     if (!empty($_SESSION['flashmessage'])) {
-        echo '<div class="alert alert-info alert-dismissible">';
+        echo '<div class="alert alert-info alert-dismissible" id="alertbox">';
         echo '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
         echo '<p><strong>' . $this->lang('msg_core_flashnotice', false) . '</strong></p>';
         echo '<p>' . $_SESSION['flashmessage'] . '<p>';

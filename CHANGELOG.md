@@ -1,6 +1,10 @@
 CHANGELOG
 =========
 
+2017-10-03 Closing of alertboxes now working
+
+2017-09-30 Changed create.sql for new MySQL datetime default values
+
 2017-06-20 Form: added button and date elements, and labels can be disabled
  
 2017-06-11 DeleteCache now rebuilds module config
