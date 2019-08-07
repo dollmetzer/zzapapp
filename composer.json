@@ -1,8 +1,16 @@
 {
-  "name": "zzapapp",
-  "require-dev": {
-    "dollmetzer/zzaplib": "2.0.0.x-dev"
-  },
+  "name": "dollmetzer/zzapapp",
+  "description": "Lightweigt PHP application skeleton",
+  "type": "application",
+  "license": "GPLv3",
+  "version": "3.0.0",
+  "authors": [
+    {
+      "name": "Dirk Ollmetzer",
+      "email": "dirk.ollmetzer@ollmetzer.com",
+      "homepage": "http://www.ollmetzer.com"
+    }
+  ],
   "repositories": [
     {
       "type": "vcs",
@@ -10,6 +18,13 @@
       "reference": "2.0.0"
     }
   ],
+  "require": {
+    "php": ">=7.0",
+    "dollmetzer/zzaplib": "2.0.0.x-dev"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6.5"
+  },
   "autoload": {
     "psr-4": {
       "Application\\": "app"

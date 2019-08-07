@@ -1,1 +1,0 @@
-<p>Insert privacy declaration here</p>

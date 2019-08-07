@@ -1,7 +1,7 @@
 <?php
 /**
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2006-2017, Dirk Ollmetzer
+ * @copyright (c) 2006-2019, Dirk Ollmetzer
  * @package Application
  */
 $timeStart = microtime(true);

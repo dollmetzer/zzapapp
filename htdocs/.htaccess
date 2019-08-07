@@ -3,7 +3,15 @@ RewriteEngine on
 
 RewriteRule api/v1/(.*) api.php?q=$1 [NC,L]
 
-RewriteCond %{REQUEST_URI} !\.(js|ico|gif|jpg|png|css|swf|flv|php|eot|svg|ttf|woff|woff2)$
+RewriteCond %{REQUEST_URI} !\.(js|ico|gif|jpg|png|json|css|map|swf|flv|php|eot|svg|ttf|woff|woff2|html)$
 RewriteRule (.+) index.php?q=$1
 
 </IfModule>
+
+# XDEBUG for DEV enviroment
+# php_value xdedug.remote_enable On
+# php_value xdedug.remote_host 127.0.0.1
+# php_value xdedug.remote_port 9000
+# php_value xdedug.remote_connect_back 1
+# php_value xdedug.max_nesting_level 500
+# php_value xdedug.var_display_max_depth 10
