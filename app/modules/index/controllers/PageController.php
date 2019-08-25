@@ -5,7 +5,7 @@ namespace Application\modules\index\controllers;
 
 use dollmetzer\zzaplib\controller\WebController;
 
-class pageController extends WebController
+class PageController extends WebController
 {
 
     public function termsAction()

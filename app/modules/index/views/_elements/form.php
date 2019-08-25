@@ -37,7 +37,7 @@ foreach ($content['form']['fields'] as $name => $field) {
         }
 
         if ($field['type'] != 'divider') {
-            if ($field['label'] !== false) {
+            if (!empty($field['label'])) {
                 echo "    <label for='formfield_$name' class='control-label'>" . $viewhelper->translate('form_label_' . $name, false);
 
                 if (!empty($field['help'])) {

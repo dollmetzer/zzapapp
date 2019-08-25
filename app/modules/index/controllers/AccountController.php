@@ -2,22 +2,26 @@
 
 namespace Application\modules\index\controllers;
 
+use Application\modules\index\models\GroupModel;
+use Application\modules\index\models\UserModel;
+use dollmetzer\zzaplib\exception\ApplicationException;
 use dollmetzer\zzaplib\controller\WebController;
 use dollmetzer\zzaplib\data\Form;
 
-class accountController extends WebController
+class AccountController extends WebController
 {
 
     public function loginAction() {
 
         $fields = [
             'handle' => [
+                'label' => 'handle',
                 'type' => 'text',
                 'required' => true,
                 'maxlength' => 32,
-
             ],
             'password' => [
+                'label' => 'password',
                 'type' => 'password',
                 'required' => true,
                 'maxlength' => 32,
@@ -31,18 +35,26 @@ class accountController extends WebController
         $form->setFields($fields);
 
         if ($form->process()) {
-
             $values = $form->getValues();
-            print_r($values);
-            die();
-
+            $userModel = new UserModel($this->config, $this->logger);
+            $user = $userModel->getByLogin($values['handle'], $values['password']);
+            if($user) {
+                $this->doLogin($user);
+                $url = $this->router->buildURL('/');
+                $message = $this->translator->translate('msg_login_success');
+                $this->response->redirect($url, $message, 'notice');
+            } else {
+                $form->setError('error_login_failed');
+            }
         }
-
         $this->view->addContent('form', $form->getViewdata());
     }
 
     public function logoutAction() {
-        $this->response->redirect($this->router->buildUrl('/'));
+        $this->session->destroy();
+        $this->session->init();
+        $message = $this->translator->translate('msg_logout_success');
+        $this->response->redirect($this->router->buildUrl('/'), $message, 'notice');
     }
 
     public function registerAction() {
@@ -110,5 +122,40 @@ class accountController extends WebController
 
     public function resetpasswordAction() {
 
+    }
+
+    /**
+     * @param array $user
+     * @throws \dollmetzer\zzaplib\exception\ApplicationException
+     */
+    private function doLogin(array $user)
+    {
+        $groupModel = new GroupModel($this->config, $this->logger);
+        $groupsRaw = $groupModel->getUserGroups($user['id']);
+
+        $groups = [];
+        for($i=0; $i<sizeof($groupsRaw); $i++) {
+            $groups[] = $groupsRaw[$i]['name'];
+        }
+
+        // The application user
+        $this->session->set('userId', $user['id']);
+        $this->session->set('userHandle', $user['handle']);
+        $this->session->set('userLanguage', $user['language']);
+        $this->session->set('userCountry', $user['country']);
+        $this->session->set('userEmail', $user['email']);
+        $this->session->set('userCreated', $user['created']);
+        $this->session->set('userLastlogin', $user['lastlogin']);
+        $this->session->set('userGroups', $groups);
+
+        // The authenticated user for use with later impersonation
+        $this->session->set('authId', $user['id']);
+        $this->session->set('authHandle', $user['handle']);
+        $this->session->set('authLanguage', $user['language']);
+        $this->session->set('authCountry', $user['country']);
+        $this->session->set('authEmail', $user['email']);
+        $this->session->set('authCreated', $user['created']);
+        $this->session->set('authLastlogin', $user['lastlogin']);
+        $this->session->set('authGroups', $groups);
     }
 }

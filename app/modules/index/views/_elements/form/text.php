@@ -11,4 +11,7 @@ if (!empty($field['maxlength'])) {
 if (!empty($field['placeholder'])) {
     echo 'placeholder="' . $field['placeholder'] . '" ';
 }
-echo 'value="' . $field['value'] . '" class="form-control" />';
+if (!empty($field['value'])) {
+    echo 'value="' . $field['value'] . '" ';
+}
+echo 'class="form-control" />';
