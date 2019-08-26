@@ -25,9 +25,19 @@
             </div>
         </header>
         <div>
-            <a href="<?php $viewhelper->buildURL('account/login'); ?>"><?php $viewhelper->translate('link_login') ?></a>
-            <a href="<?php $viewhelper->buildURL('account/logout'); ?>"><?php $viewhelper->translate('link_logout') ?></a>
-            <a href="<?php $viewhelper->buildURL('account/register'); ?>"><?php $viewhelper->translate('link_register') ?></a>
+            <?php if($this->session->get('userId') == 0) { ?>
+                <a href="<?php $viewhelper->buildURL('account/login'); ?>"><?php $viewhelper->translate('link_login') ?></a>
+                <a href="<?php $viewhelper->buildURL('account/register'); ?>"><?php $viewhelper->translate('link_register') ?></a>
+            <?php } else { ?>
+                <a href="<?php $viewhelper->buildURL('account/logout'); ?>"><?php $viewhelper->translate('link_logout') ?></a>
+                (<?php
+                    $viewhelper->translate('txt_logged_in_as');
+                    echo $session->get('userHandle');
+                ?>)
+            <?php } ?>
+
+
+
         </div>
         <?php if(!empty($title)) {
             echo '<h1>'.$title.'</h1>';
