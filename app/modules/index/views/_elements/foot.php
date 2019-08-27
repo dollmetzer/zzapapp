@@ -1,3 +1,11 @@
+    </main>
+
+    <footer class="footer mt-auto py-3">
+        <div class="container">
+            <?php include PATH_APP.'modules/index/views/_elements/nav_footer.php'; ?>
+        </div>
+    </footer>
+<!--
 <div class="container">
     <footer>
         <div class="row">
@@ -7,7 +15,7 @@
         </div>
     </footer>
 </div>
-
+-->
 
 <pre><?php print_r($_REQUEST); ?></pre>
 <pre><?php print_r($_SESSION); ?></pre>

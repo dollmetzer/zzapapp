@@ -1,0 +1,21 @@
+/* Show it's not fixed to the top */
+body {
+    min-height: 75rem;
+}
+
+.footer {
+    margin:1rem 0 0 0;
+    background-color: #f5f5f5;
+}
+footer ul {
+    margin:0;
+    border: 0;
+    padding:0;
+    list-style: none;
+}
+footer li {
+    margin: 0 2rem 0 0;
+    border: 0;
+    padding:0;
+    float:left;
+}

@@ -1,6 +1,6 @@
 <?php
 $title = $viewhelper->translate('title_home', false);
-$nav_top = '';
+$nav_top = 'home';
 
 include PATH_APP.'modules/index/views/_elements/head.php';
 ?>
