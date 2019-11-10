@@ -1,13 +1,12 @@
-<div class="container">
-    <footer>
-        <div class="row">
-            <div class="col-12" style="border:1px solid blue;">
-                <?php include PATH_APP.'modules/index/views/_elements/nav_footer.php'; ?>
-            </div>
-        </div>
-    </footer>
-</div>
 
+    </div>
+</main>
+
+<footer class="footer mt-auto py-3">
+    <div class="container">
+        <span class="text-muted"><?php include PATH_APP.'modules/index/views/_elements/nav_footer.php'; ?></span>
+    </div>
+</footer>
 
 <pre><?php print_r($_REQUEST); ?></pre>
 <pre><?php print_r($_SESSION); ?></pre>
