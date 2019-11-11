@@ -75,19 +75,24 @@ class AccountController extends WebController
 
         $fields = [
             'handle' => [
+                'label' => 'handle',
                 'type' => 'text',
                 'required' => true,
                 'pattern' => '/^[a-z0-9_\-]*$/i',
                 'minlength' => 6,
                 'maxlength' => 32,
+                'value' => '',
                 'help' => $this->translator->translate('form_help_registerform_handle')
             ],
             'email' => [
+                'label' => 'email',
                 'type' => 'email',
                 'required' => true,
                 'maxlength' => 255,
+                'value' => '',
             ],
             'password' => [
+                'label' => 'password',
                 'type' => 'password',
                 'required' => true,
                 'minlength' => 8,
@@ -95,12 +100,14 @@ class AccountController extends WebController
                 'help' => $this->translator->translate('form_help_registerform_password')
             ],
             'password2' => [
+                'label' => 'password2',
                 'type' => 'password',
                 'required' => true,
                 'minlength' => 8,
                 'maxlength' => 32,
             ],
             'language' => [
+                'label' => 'language',
                 'type' => 'select',
                 'required' => true,
                 'options' => $languages,

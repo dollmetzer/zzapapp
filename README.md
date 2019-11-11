@@ -17,3 +17,9 @@ application, it's esy to install them with composer.
 
 - [Installation](doc/install.md)
 - [Typical werequest](doc/webrequest.md)
+
+To give it a professional look, this application uses assets from
+two great projects:
+
+- The CSS framework [Bootstrap](https://getbootstrap.com) 
+- The Icon font from [Fontawesome](https://fontawesome.io)

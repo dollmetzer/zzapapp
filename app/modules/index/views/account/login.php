@@ -1,6 +1,6 @@
 <?php
 $title = $viewhelper->translate('title_login', false);
-$nav_top = '';
+$nav_top = 'login';
 
 include PATH_APP.'modules/index/views/_elements/head.php';
 ?>

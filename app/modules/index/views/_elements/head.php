@@ -11,6 +11,7 @@
 
     <link href="<?php $viewhelper->buildMediaURL('css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php $viewhelper->buildMediaURL('css/app.css'); ?>" rel="stylesheet">
+    <link href="<?php $viewhelper->buildMediaURL('css/all.min.css'); ?>" rel="stylesheet">
 
     <script src="<?php $viewhelper->buildMediaUrl('js/jquery-3.4.1.min.js'); ?>" type="text/javascript" ></script>
     <script src="<?php $viewhelper->buildMediaUrl('js/bootstrap.bundle.js'); ?>" type="text/javascript" ></script>
@@ -26,7 +27,7 @@
 <header>
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="<?php $viewhelper->buildURL(''); ?>"><i class="fas fa-home"></i> Fixed navbar</a>
+        <a class="navbar-brand" href="<?php $viewhelper->buildURL(''); ?>"><i class="fas fa-home"></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
