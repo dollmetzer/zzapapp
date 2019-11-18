@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2019-11-18 Added language switch
+
 2019-11-11 Added Fontawesome
 
 2019-11-10 Bootstrap style "Sticky footer with fixed navbar" implemented
