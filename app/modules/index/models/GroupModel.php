@@ -29,7 +29,7 @@ class GroupModel extends DBModel
     public function getUserGroups($_userId)
     {
         $sql = "SELECT g.*
-                FROM `user_group` AS ug
+                FROM `user_has_group` AS ug
                 JOIN `group` AS g ON g.id=ug.group_id
                 WHERE `user_id`=?
                     AND g.active=1";

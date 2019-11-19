@@ -1,6 +1,8 @@
 CHANGELOG
 =========
 
+2019-11-19 added basic db schema
+
 2019-11-18 Added language switch
 
 2019-11-11 Added Fontawesome
