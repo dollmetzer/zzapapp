@@ -13,16 +13,17 @@
     <li class="nav-item">
         <a class="nav-link<?php if($nav_top == 'register') echo ' active' ?>" href="<?php $viewhelper->buildURL('account/register'); ?>"><?php $viewhelper->translate('link_register') ?></a>
     </li>
-    <?php } else { ?>
+    <?php } else {
+        if(in_array(1, array_keys($session->get('userGroups')))) { ?>
     <li class="nav-item">
-        <a class="nav-link" href="<?php $viewhelper->buildURL('account/logout'); ?>"><?php $viewhelper->translate('link_logout') ?></a>
-        (<?php
-        $viewhelper->translate('txt_logged_in_as');
-        echo $session->get('userHandle');
-        ?>)
+        <a class="nav-link" href="<?php $viewhelper->buildURL('account/impersonate'); ?>"><?php $viewhelper->translate('link_impersonate') ?></a>
+    </li>
+       <?php } ?>
+
+    <li class="nav-item">
+        <a class="nav-link" href="<?php $viewhelper->buildURL('account/logout'); ?>"><?php $viewhelper->translate('link_logout') ?>&nbsp;(<?php
+            echo $session->get('userHandle');
+            ?>)</a>
     </li>
     <?php } ?>
-
-
-
 </ul>

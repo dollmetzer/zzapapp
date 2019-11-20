@@ -20,7 +20,16 @@ use dollmetzer\zzaplib\data\Form;
 class AccountController extends WebController
 {
 
-    public function loginAction() {
+    public $permission = [
+        'login' => [6],
+        'register' => [6],
+        'confirm' => [6],
+        'resetpassword' => [6],
+        'impersonate' => [2],
+    ];
+
+    public function loginAction()
+    {
 
         $fields = [
             'handle' => [
@@ -47,7 +56,7 @@ class AccountController extends WebController
             $values = $form->getValues();
             $userModel = new UserModel($this->config, $this->logger);
             $user = $userModel->getByLogin($values['handle'], $values['password']);
-            if($user) {
+            if ($user) {
                 $this->doLogin($user);
                 $url = $this->router->buildURL('/');
                 $message = $this->translator->translate('msg_login_success');
@@ -59,18 +68,20 @@ class AccountController extends WebController
         $this->view->addContent('form', $form->getViewdata());
     }
 
-    public function logoutAction() {
+    public function logoutAction()
+    {
         $this->session->destroy();
         $this->session->init();
         $message = $this->translator->translate('msg_logout_success');
         $this->response->redirect($this->router->buildUrl('/'), $message, 'notice');
     }
 
-    public function registerAction() {
+    public function registerAction()
+    {
 
         $languages = [];
-        foreach($this->config->get('languages') as $pos=>$key) {
-            $languages[$key] = $this->translator->translate('language_'.$key);
+        foreach ($this->config->get('languages') as $pos => $key) {
+            $languages[$key] = $this->translator->translate('language_' . $key);
         }
 
         $fields = [
@@ -132,12 +143,19 @@ class AccountController extends WebController
         $this->view->addContent('form', $form->getViewdata());
     }
 
-    public function confirmAction() {
-
+    public function confirmAction()
+    {
+        die('no confirmation yet');
     }
 
-    public function resetpasswordAction() {
+    public function resetpasswordAction()
+    {
+        die('no password reset yet');
+    }
 
+    public function impersonateAction()
+    {
+        die('no impersonation yet');
     }
 
     /**
@@ -150,8 +168,8 @@ class AccountController extends WebController
         $groupsRaw = $groupModel->getUserGroups($user['id']);
 
         $groups = [];
-        for($i=0; $i<sizeof($groupsRaw); $i++) {
-            $groups[] = $groupsRaw[$i]['name'];
+        for ($i = 0; $i < sizeof($groupsRaw); $i++) {
+            $groups[$groupsRaw[$i]['id']] = $groupsRaw[$i]['name'];
         }
 
         // The application user

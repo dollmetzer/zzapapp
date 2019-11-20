@@ -25,7 +25,7 @@ class LanguageController extends WebController
                 $this->session->set('userLanguage', $params[0]);
             }
         }
-        $this->response->redirect($this->router->buildURL('/'));
+        $this->response->redirect($this->router->buildURL(''));
 
         die('language::set');
     }
