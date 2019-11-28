@@ -47,7 +47,7 @@ foreach ($content['form']['fields'] as $name => $field) {
                 }
 
                 if (!empty($field['required'])) {
-                    echo '&nbsp;<sup><i class="glyphicon glyphicon-asterisk"></i></sup>';
+                    echo '&nbsp;<sup><i class="fas fa-asterisk"></i></sup>';
                     $hasRequired = true;
                 } else {
                     echo '&nbsp;<sup>&nbsp;</sup>';
@@ -63,7 +63,7 @@ foreach ($content['form']['fields'] as $name => $field) {
 
 
         if (!empty($field['error'])) {
-            echo "<p class='text-danger'><strong>" . $field['error'] . "</strong></p>\n";
+            echo "<p class='text-danger'><strong>" . $viewhelper->translate($field['error'], false)  . "</strong></p>\n";
         }
 
         echo "</div>\n\n";

@@ -135,9 +135,15 @@ class AccountController extends WebController
         if ($form->process()) {
 
             $values = $form->getValues();
-            print_r($values);
-            die();
+            if ($values['password'] != $values['password2']) {
+                $form->setError('form_error_passwords_unequal', 'password2');
+            }
 
+            if($form->hasErrors() !== false) {
+                print_r($values);
+                die();
+
+            }
         }
 
         $this->view->addContent('form', $form->getViewdata());
