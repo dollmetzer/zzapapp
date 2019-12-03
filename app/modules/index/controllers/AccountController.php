@@ -139,8 +139,20 @@ class AccountController extends WebController
                 $form->setError('form_error_passwords_unequal', 'password2');
             }
 
-            if($form->hasErrors() !== false) {
+            if($form->hasErrors() === false) {
+                $targetValue = [
+                    'handle' => $values['handle'],
+                    'email' => $values['email'],
+                    'password' => hash('sha256', $values['password']),
+                    'language' => $values['language']
+                ];
+
+                $userModel = new UserModel($this->config, $this->logger);
+                $id = $userModel->create($targetValue);
+
+                echo "<pre>";
                 print_r($values);
+                print_r($targetValue);
                 die();
 
             }
