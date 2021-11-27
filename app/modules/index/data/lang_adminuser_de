@@ -4,10 +4,6 @@
 ; @copyright (c) 2006-2022, Dirk Ollmetzer
 ;
 
-; language specific formats
-
-; languages
-
 ; navigation
 
 ; headlines
@@ -24,6 +20,6 @@
 
 ; tables
 
-; form
+; forms
 
 ; form errors

@@ -6,7 +6,7 @@
  *
  * @author Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
- * @copyright 2019 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
+ * @copyright 2006-2022 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  */
 
 namespace Application\modules\index\controllers;
@@ -19,18 +19,16 @@ use dollmetzer\zzaplib\data\Form;
 
 class AccountController extends WebController
 {
-
     public $permission = [
-        'login' => [6],
-        'register' => [6],
-        'confirm' => [6],
-        'resetpassword' => [6],
-        'impersonate' => [2],
+        'login' => ['Guest'],
+        'register' => ['Guest'],
+        'confirm' => ['Guest'],
+        'resetpassword' => ['Guest'],
+        'impersonate' => ['Operator'],
     ];
 
     public function loginAction()
     {
-
         $fields = [
             'handle' => [
                 'label' => 'handle',
@@ -78,7 +76,6 @@ class AccountController extends WebController
 
     public function registerAction()
     {
-
         $languages = [];
         foreach ($this->config->get('languages') as $pos => $key) {
             $languages[$key] = $this->translator->translate('language_' . $key);
@@ -133,13 +130,12 @@ class AccountController extends WebController
         $form->setFields($fields);
 
         if ($form->process()) {
-
             $values = $form->getValues();
             if ($values['password'] != $values['password2']) {
                 $form->setError('form_error_passwords_unequal', 'password2');
             }
 
-            if($form->hasErrors() === false) {
+            if ($form->hasErrors() === false) {
                 $targetValue = [
                     'handle' => $values['handle'],
                     'email' => $values['email'],
@@ -154,7 +150,6 @@ class AccountController extends WebController
                 print_r($values);
                 print_r($targetValue);
                 die();
-
             }
         }
 

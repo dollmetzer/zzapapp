@@ -1,6 +1,7 @@
 <?php
+
 echo '<input id="formfield_'.$name.'" type="submit" name="'.$name;
-if(!empty($field['value'])) {
+if (!empty($field['value'])) {
     echo '" value="'.$viewhelper->translate('form_btn_submit_' . $field['value'], false);
 } else {
     echo '" value="'.$viewhelper->translate('form_btn_submit', false);

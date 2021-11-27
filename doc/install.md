@@ -43,13 +43,14 @@ Run composer in the application root directory
   cd /var/www
   composer install
 
-Prepare the database
---------------------
-tbd... migrations?
-
 Configure the application
 -------------------------
 Copy the config.dist.ini to the config.ini and adjust your settings for URL, paths, database access etc.
+
+Prepare the database
+--------------------
+run the create.sql script to create the database schema.
+It also creates some user groups and an admin account with the password 'Admin2021!' 
 
 Configure the Webserver
 -----------------------

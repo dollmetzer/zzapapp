@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="vendor/autoload.php">
+    <testsuites>
+        <testsuite name="zzapapp">
+            <directory>tests/unitTests</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory>app</directory>
+            <file>./coverage.txt</file>
+        </whitelist>
+    </filter>
+    <php>
+        <const name="UNIT_TEST" value='true' />
+    </php>
+</phpunit>

@@ -1,6 +1,7 @@
 <?php
+
 echo '<input id="formfield_'.$name.'" type="button" name="'.$name;
-if(!empty($field['value'])) {
+if (!empty($field['value'])) {
     echo '" value="'.$viewhelper->translate('form_btn_' . $field['value'], false);
 } else {
     echo '" value="'.$viewhelper->translate('form_btn', false);

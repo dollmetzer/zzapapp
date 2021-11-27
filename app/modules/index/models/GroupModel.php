@@ -6,7 +6,7 @@
  *
  * @author Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
- * @copyright 2019 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
+ * @copyright 2006-2022 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  */
 
 namespace Application\modules\index\models;
@@ -16,9 +16,9 @@ use dollmetzer\zzaplib\model\DbModel;
 class GroupModel extends DBModel
 {
     /**
-     * @var string $tablename Name for standard CRUD
+     * @var string
      */
-    protected $tablename = 'group';
+    protected $tableName = 'group';
 
     /**
      * Get a list of all groups for a certain user
@@ -171,5 +171,4 @@ class GroupModel extends DBModel
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result['entries'];
     }
-
 }

@@ -5,13 +5,13 @@
  * Loads and runs the application
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2006-2019, Dirk Ollmetzer
+ * @copyright (c) 2006-2022, Dirk Ollmetzer
  * @package Application
  */
 
 namespace Application;
 
-use \dollmetzer\zzaplib\Application;
+use dollmetzer\zzaplib\Application;
 
 // include composer packages
 include realpath(__DIR__ . '/../vendor/autoload.php');

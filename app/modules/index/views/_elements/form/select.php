@@ -4,10 +4,10 @@ echo '<select id="formfield_'.$name.'" name="' . $name;
 if (!empty($field['readonly'])) {
     echo '" readonly="readonly" onchange="this.selectedIndex = '.$field['value'].';';
 }
-if(!empty($field['size'])) {
+if (!empty($field['size'])) {
     echo '" size="'.$field['size'];
 }
-if(!empty($field['multiple'])) {
+if (!empty($field['multiple'])) {
     echo '" multiple="'.$field['multiple'];
 }
 echo '" class="form-control">';

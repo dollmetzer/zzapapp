@@ -3,7 +3,7 @@
         <?php
 
         echo '<input id="formfield_'.$name.'" type="checkbox" name="' . $name;
-        if(!empty($field['value'])) {
+        if (!empty($field['value'])) {
             echo '" checked="checked';
         }
         if (!empty($field['readonly'])) {
@@ -11,7 +11,7 @@
         }
 
         echo '" />&nbsp;';
-        if(!empty($field['description'])) {
+        if (!empty($field['description'])) {
             echo $field['description'];
         }
 

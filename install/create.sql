@@ -65,7 +65,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `active`, `handle`, `password`, `language`, `country`, `email`, `created`, `confirmed`, `confirmcode`, `lastlogin`) VALUES
-(1, 1, 'admin', '8a3e4699c3ea43011b65bdc2e8dbeab5888cf63718a89e881b0bfdd34b0969bb', 'en', 'us', 'your.name@domain.com', '2019-11-19 00:00:00', '2019-11-19 00:00:00', '', NULL);
+(1, 1, 'admin', 'dba06b2cd23e59fbdf28b9796e8bfa15d02394a5b460770d64e9295438613b58', 'de', 'de', 'your.name@domain.com', '2021-11-27 00:00:00', '2019-11-19 00:00:00', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -130,5 +130,7 @@ ALTER TABLE `user`
 -- Constraints der Tabelle `user_has_group`
 --
 ALTER TABLE `user_has_group`
-  ADD CONSTRAINT `fk_uhg_group_id` FOREIGN KEY (`group_id`) REFERENCES `user` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_uhg_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+    ADD CONSTRAINT `fk_uhg_group_id` FOREIGN KEY (`group_id`) REFERENCES `group` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+    ADD CONSTRAINT `fk_uhg_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+COMMIT;
+

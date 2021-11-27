@@ -2,7 +2,9 @@
 <html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
-    <title><?php if(!empty($title)) echo $title ?></title>
+    <title><?php if (!empty($title)) {
+    echo $title;
+} ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Components and options for laying out your Bootstrap project, including wrapping containers, a powerful grid system, a flexible media object, and responsive utility classes.">
     <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
@@ -46,6 +48,6 @@
 <main role="main" class="flex-shrink-0">
     <div class="container">
 
-        <?php if(!empty($title)) {
-            echo '<h1>'.$title.'</h1>';
-        }?>
+        <?php if (!empty($title)) {
+    echo '<h1>'.$title.'</h1>';
+}?>

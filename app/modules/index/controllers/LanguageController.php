@@ -6,7 +6,7 @@
  *
  * @author Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
- * @copyright 2019 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
+ * @copyright 2006-2022 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  */
 
 namespace Application\modules\index\controllers;
@@ -15,13 +15,12 @@ use dollmetzer\zzaplib\controller\WebController;
 
 class LanguageController extends WebController
 {
-
     public function setAction()
     {
         $params = $this->request->getParams();
-        if(sizeof($params) > 0) {
+        if (sizeof($params) > 0) {
             $languages = $this->config->get('languages');
-            if(in_array($params[0], $languages)) {
+            if (in_array($params[0], $languages)) {
                 $this->session->set('userLanguage', $params[0]);
             }
         }
@@ -29,5 +28,4 @@ class LanguageController extends WebController
 
         die('language::set');
     }
-
 }

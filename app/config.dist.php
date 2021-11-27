@@ -4,7 +4,7 @@
  * -----------------------------------------
  *
  * @author Dirk Ollmetzer <dirk.ollmetzer@ollmetzer.com>
- * @copyright (c) 2006-2019, Dirk Ollmetzer
+ * @copyright (c) 2006-2022, Dirk Ollmetzer
  * @package Application
  */
 
@@ -52,6 +52,11 @@ return [
             'user' => 'root',
             'pass' => 'root'
         )
+    ),
+    'database' => array(
+        'dsn' => 'mysql:host=localhost;dbname=zzapapp3',
+        'user' => 'dbusername',
+        'password' => 'dbuserpassword'
     ),
     'countries' => array(
         'at',

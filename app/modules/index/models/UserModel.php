@@ -6,7 +6,7 @@
  *
  * @author Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPL 3.0
- * @copyright 2019 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
+ * @copyright 2006-2022 Dirk Ollmetzer (dirk.ollmetzer@ollmetzer.com)
  */
 
 namespace Application\modules\index\models;
@@ -16,9 +16,9 @@ use dollmetzer\zzaplib\model\DbModel;
 class UserModel extends DbModel
 {
     /**
-     * @var string $tablename Name for standard CRUD
+     * @var string
      */
-    protected $tablename = 'user';
+    protected $tableName = 'user';
 
     /**
      * create a new user
@@ -152,5 +152,4 @@ class UserModel extends DbModel
         $user = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $user;
     }
-
 }

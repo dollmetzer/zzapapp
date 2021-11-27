@@ -22,7 +22,6 @@ $focus = '';
 
 foreach ($content['form']['fields'] as $name => $field) {
     if ($field['type'] != 'hidden') {
-
         if (empty($focus)) {
             $focus = $name;
         }
@@ -85,7 +84,7 @@ if ($hasRequired === true) {
         $('[data-toggle="tooltip"]').tooltip()
     });
 
-    <?php if(!empty($content['form']['name'])) { ?>
+    <?php if (!empty($content['form']['name'])) { ?>
     document.forms.<?php echo $content['form']['name'] . '.' . $focus ?>.focus();
     <?php } ?>
 

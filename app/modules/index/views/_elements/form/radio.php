@@ -1,5 +1,6 @@
 <?php
-if(!empty($field['inline'])) {
+
+if (!empty($field['inline'])) {
     $class = 'radio-inline';
 } else {
     $class = 'radio';

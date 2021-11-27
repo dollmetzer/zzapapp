@@ -6,14 +6,13 @@
     </ol>
     <?php
         $languages = $this->config->get('languages');
-        if(sizeof($languages) > 1) {
+        if (sizeof($languages) > 1) {
             echo '[';
-            for($i=0; $i<sizeof($languages); $i++)
-            {
-                if($i > 0) {
+            for ($i=0; $i<sizeof($languages); $i++) {
+                if ($i > 0) {
                     echo '|';
                 }
-                if($languages[$i] == $this->session->get('userLanguage')) {
+                if ($languages[$i] == $this->session->get('userLanguage')) {
                     echo ' <strong>'.$languages[$i].'</strong> ';
                 } else {
                     echo ' <a href="';
